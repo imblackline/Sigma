@@ -36,7 +36,7 @@ export default {
         const data2 = ref([])
         const generateBarChart = (url) => {
             d3.select(chartRef.value).select('svg').remove();
-            console.log(url);
+            console.log(`/data/${url}`);
             // d3.csv(`src/assets/data/${url}`).then((results) => {
             d3.csv(`/data/${url}`).then((results) => {
                 console.log("aaaaaa", results);
