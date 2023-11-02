@@ -17,9 +17,9 @@
         </div>
 
         <select v-model="selected" @change="generateBarChart(selected)">
-            <option v-for="item in $store.state.fileList"  :value="item">{{ item.split('_')[0] }}</option>
+            <option v-for="item in $store.state.fileList" :value="item">{{ item.split('_')[0] }}</option>
         </select>
-        <div ref="chartRef"></div>
+        <div class="assignment1__chart" ref="chartRef"></div>
     </div>
 </template>
 
@@ -36,18 +36,19 @@ export default {
         const data2 = ref([])
         const generateBarChart = (url) => {
             d3.select(chartRef.value).select('svg').remove();
-            console.log(`/data/${url}`);
             // d3.csv(`src/assets/data/${url}`).then((results) => {
             d3.csv(`data/${url}`).then((results) => {
-                console.log("aaaaaa", results);
                 data2.value = results;
-                const treeStats = data2.value.reduce((acc, cur) => {
-                    const name = cur.scientific_name;
+                // console.log(results);
+                let treeStats = data2.value.reduce((acc, cur) => {
+                    let name = cur.scientific_name;
                     if (name !== 'NA') {
                         if (!acc[name]) {
-                            acc[name] = { count: 0, heightSum: 0, heightAvg: null };
+                            acc[name] = { count: 0, heightSum: 0, heightAvg: null, common_name:null };
                         }
-
+                        if(cur.common_name !== 'NA'){
+                            acc[name].common_name = cur.common_name;
+                        }
                         if (cur.height_M !== 'NA') {
                             acc[name].heightSum += parseFloat(cur.height_M);
                             acc[name].count++;
@@ -59,21 +60,23 @@ export default {
 
                     return acc;
                 }, {});
-                const treeData = Object.entries(treeStats).map(([name, stats]) => ({
+                let treeData = Object.entries(treeStats).map(([name, stats]) => ({
                     name,
+                    common_name: stats.common_name,
+                    heightAvg: stats.heightAvg,
                     value: stats.count
                 }));
-                const sortedTreeData = treeData.sort((a, b) => a.value - b.value);
+                let sortedTreeData = treeData.sort((a, b) => a.value - b.value);
+                console.log("ppp",sortedTreeData);
 
-                console.log(sortedTreeData);
-
-
+                
+                
                 // console.log(treeStats);
-                const margin = { top: 20, right: 30, bottom: 30, left: 150 };
-                const width = 1020 - margin.left - margin.right;
-                const height = 1020 - margin.top - margin.bottom;
+                let margin = { top: 20, right: 30, bottom: 30, left: 150 };
+                let width = 1220 - margin.left - margin.right;
+                let height = (sortedTreeData.length*20) - margin.top - margin.bottom;
 
-                const svg = d3.select(chartRef.value)
+                let svg = d3.select(chartRef.value)
                     .append('svg')
                     .attr('width', width + margin.left + margin.right)
                     .attr('height', height + margin.top + margin.bottom)
@@ -81,11 +84,11 @@ export default {
                     .attr('transform', `translate(${margin.left},${margin.top})`)
                     .style('color', '#b3b3b3');
 
-                const x = d3.scaleLinear()
+                let x = d3.scaleLinear()
                     .range([0, width])
                     .domain([0, d3.max(sortedTreeData, (d) => d.value)]);
 
-                const y = d3.scaleBand()
+                let y = d3.scaleBand()
                     .range([height, 0])
                     .domain(sortedTreeData.map(a => a.name))
                     .padding(0.15);
@@ -117,20 +120,26 @@ export default {
                         d3.select(this).style('fill', '#333333');
                         svg.append('rect')
                             .attr('class', 'tooltip-background')
-                            .attr('x', x(d.value) + 5)
+                            .attr('x', x(d.value)/2)
                             .attr('y', y(d.name) + y.bandwidth() / 2 - 15)
                             .attr('rx', '5')
                             .attr('ry', '5')
-                            .attr('width', '80')
-                            .attr('height', '30')
+                            .attr('width', '250')
+                            .attr('height', '70')
                             .style('fill', '#fff');
                         svg.append('text')
                             .attr('class', 'tooltip-text')
-                            .attr('x', x(d.value) + 10)
+                            .attr('x', x(d.value)/2)
                             .attr('y', y(d.name) + y.bandwidth() / 2)
-                            .text(`Count: ${d.value} \r\n asdsadasf`)
                             .style('font-size', '12px')
-                            .style('fill', '#333333');
+                            .style('fill', '#333333')
+                            .selectAll('tspan')
+                            .data([`Count: ${d.value}`, `Common Name: ${d.common_name}`, `Average height: ${Number((d.heightAvg)?.toFixed(2))}`]) // Define an array of lines
+                            .enter()
+                            .append('tspan')
+                            .attr('x', x(d.value)/2 +10)
+                            .attr('dy', 12) // Adjust the line spacing as needed
+                            .text(d => d);
                     })
                     .on('mouseout', function (event, d) {
                         d3.select(this).style('fill', '#e6e6e6');
@@ -152,7 +161,7 @@ export default {
             generateBarChart(selected.value);
         });
 
-        return { chartRef, selected,generateBarChart };
+        return { chartRef, selected, generateBarChart };
     },
 };
 </script>
@@ -166,7 +175,9 @@ export default {
     height: 100%;
     overflow-x: hidden;
     overflow-y: auto;
-
+    &__chart {
+        // z-index: 2;
+    }
     &__header {
         width: 100%;
         display: flex;
