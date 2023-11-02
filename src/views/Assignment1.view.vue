@@ -38,7 +38,7 @@ export default {
             d3.select(chartRef.value).select('svg').remove();
             console.log(`/data/${url}`);
             // d3.csv(`src/assets/data/${url}`).then((results) => {
-            d3.csv(`Sigma/data/${url}`).then((results) => {
+            d3.csv(`data/${url}`).then((results) => {
                 console.log("aaaaaa", results);
                 data2.value = results;
                 const treeStats = data2.value.reduce((acc, cur) => {
