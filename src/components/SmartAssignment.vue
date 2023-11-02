@@ -1,6 +1,7 @@
 <template>
     <div class="assginment" :class="{ 'deactive': !isActive }">
-        <SVGPolygon class="assginment__polygon" :color="'#22232A'" @click="$router.push(`${redirectUrl}`)" />
+        <img v-if="imgUrl" class="assginment__image" :src="`src/assets/${imgUrl}`" alt="" @click="$router.push(`${redirectUrl}`)">
+        <SVGPolygon v-else class="assginment__polygon" :color="'#22232A'" @click="$router.push(`${redirectUrl}`)" />
         <SVGPolygon class="assginment__polygon2" :color="'#292A32'" />
         <p class="assginment__name">{{ assginmentName }}</p>
         <h2 class="assginment__number">{{ assginmentNumber }}</h2>
@@ -13,6 +14,7 @@ const props = defineProps({
     assginmentNumber: String,
     assginmentName: String,
     redirectUrl: String,
+    imgUrl: String,
     isActive: {
         type: Boolean,
         default: false
@@ -27,6 +29,20 @@ const props = defineProps({
     width: 300px;
     position: relative;
 
+    &__image {
+    //    width: 100%;
+        height: 110%;
+        cursor: pointer;
+        filter: grayscale(.7);
+        transition: 0.3s;
+        &:hover {
+            filter: grayscale(0.3);
+
+        }
+        &:hover+.assginment__polygon2 {
+            transform: rotate(0deg);
+        }
+    }
 
     &__polygon2 {
         z-index: -1;
@@ -43,7 +59,6 @@ const props = defineProps({
         width: 100%;
         height: 100%;
         cursor: pointer;
-
         &:hover+.assginment__polygon2 {
             transform: rotate(0deg);
         }

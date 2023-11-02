@@ -1,6 +1,6 @@
 <template>
   <div class="assignmentcontainer">
-    <SmartAssignment :assginmentName="'Comparing categories'" :isActive="true" :assginmentNumber="'1'" :redirectUrl="'assignment1'"/>
+    <SmartAssignment :assginmentName="'Comparing categories'" :isActive="true" :assginmentNumber="'1'" :imgUrl="'comparing image.png'" :redirectUrl="'assignment1'"/>
     <SmartAssignment :assginmentName="'Distributions'" :assginmentNumber="'2'"/>
     <SmartAssignment :assginmentName="'Correlations'" :assginmentNumber="'3'"/>
     <SmartAssignment :assginmentName="'Maps'" :assginmentNumber="'4'"/>
