@@ -1,6 +1,6 @@
 <template>
     <div class="assginment" :class="{ 'deactive': !isActive }">
-        <img v-if="imgUrl" class="assginment__image" :src="`src/assets/${imgUrl}`" alt="" @click="$router.push(`${redirectUrl}`)">
+        <img v-if="imgUrl" class="assginment__image" :src="`img/${imgUrl}`" alt="" @click="$router.push(`${redirectUrl}`)">
         <SVGPolygon v-else class="assginment__polygon" :color="'#22232A'" @click="$router.push(`${redirectUrl}`)" />
         <SVGPolygon class="assginment__polygon2" :color="'#292A32'" />
         <p class="assginment__name">{{ assginmentName }}</p>
