@@ -29,19 +29,19 @@ export default {
 <style lang="scss">
 @keyframes move {
   20% {
-    transform: translatey(-1vmin);
+    transform: translatey(-1.2vmin);
     opacity: 1;
   }
 
   40% {
-    transform: translatey(-3.5vmin);
+    transform: translatey(-4.2vmin);
   }
 
   60% {
-    transform: translatey(-6.2vmin);
+    transform: translatey(-7.2vmin);
   }
   80% {
-    transform: translatey(-9vmin);
+    transform: translatey(-10.2vmin);
   }
 }
 
@@ -103,16 +103,16 @@ export default {
         height: 25vmin;
         width: 40vmin;
         background: #191a21;
-        transform: translate(-70vmin, -24.5vmin);
+        transform: translate(-60vmin, -24.5vmin);
       }
-
+      
       .closure::before {
         content: '';
         position: absolute;
         height: 25vmin;
         width: 40vmin;
         background: #191a21;
-        transform: translate(-39vmin, 2.8vmin);
+        transform: translate(-30vmin, 2.8vmin);
       }
     }
   }

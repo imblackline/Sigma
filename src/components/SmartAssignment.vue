@@ -1,6 +1,6 @@
 <template>
     <div class="assginment" :class="{ 'deactive': !isActive }">
-        <SVGPolygon class="assginment__polygon" :color="'#22232A'" />
+        <SVGPolygon class="assginment__polygon" :color="'#22232A'" @click="$router.push(`${redirectUrl}`)" />
         <SVGPolygon class="assginment__polygon2" :color="'#292A32'" />
         <p class="assginment__name">{{ assginmentName }}</p>
         <h2 class="assginment__number">{{ assginmentNumber }}</h2>
@@ -12,6 +12,7 @@ import SVGPolygon from '@/components/SVG/polygon.vue'
 const props = defineProps({
     assginmentNumber: String,
     assginmentName: String,
+    redirectUrl: String,
     isActive: {
         type: Boolean,
         default: false
@@ -52,7 +53,8 @@ const props = defineProps({
         color: rgb(121, 121, 121);
         margin-top: 25px;
     }
-    &__number{
+
+    &__number {
         position: absolute;
         bottom: -3rem;
         left: -1rem;
