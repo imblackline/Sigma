@@ -9,13 +9,13 @@
     "serve": "vite preview"
   },
   "dependencies": {
+    "@vitejs/plugin-vue": "^1.6.1",
     "core-js": "^3.8.3",
     "register-service-worker": "^1.7.2",
+    "vite": "^2.5.4",
     "vue": "^3.2.13",
     "vue-router": "^4.0.3",
-    "vuex": "^4.0.0",
-    "@vitejs/plugin-vue": "^1.6.1",
-    "vite": "^2.5.4"
+    "vuex": "^4.0.0"
   },
   "devDependencies": {
     "sass": "^1.32.7"
