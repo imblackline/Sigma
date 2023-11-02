@@ -21,8 +21,8 @@
         </select>
         <div ref="chartRef"></div>
     </div>
-</template> 
-  
+</template>
+
 <script>
 import { ref, onMounted } from 'vue';
 import * as d3 from 'd3';
@@ -127,7 +127,7 @@ export default {
                             .attr('class', 'tooltip-text')
                             .attr('x', x(d.value) + 10)
                             .attr('y', y(d.name) + y.bandwidth() / 2)
-                            .text(`Count: ${d.value}`)
+                            .text(`Count: ${d.value} \r\n asdsadasf`)
                             .style('font-size', '12px')
                             .style('fill', '#333333');
                     })
