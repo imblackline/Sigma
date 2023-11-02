@@ -1,4 +1,5 @@
 # SIGMA
+![image](https://github.com/imblackline/Sigma/assets/37950099/82500655-872c-416e-9571-03eda07a8e1c)
 
 ## Table of Contents
 - [Introduction](#introduction)
