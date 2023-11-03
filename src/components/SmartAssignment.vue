@@ -2,7 +2,7 @@
     <div class="assginment" :class="{ 'deactive': !isActive }">
         <img v-if="imgUrl" class="assginment__image" :src="`img/${imgUrl}`" alt="" @click="$router.push(`${redirectUrl}`)">
         <SVGPolygon v-else class="assginment__polygon" :color="'#22232A'" @click="$router.push(`${redirectUrl}`)" />
-        <SVGPolygon class="assginment__polygon2" :color="'#292A32'" />
+        <SVGPolygon class="assginment__polygon2" :color="'#353640'" />
         <p class="assginment__name">{{ assginmentName }}</p>
         <h2 class="assginment__number">{{ assginmentNumber }}</h2>
     </div>
@@ -31,13 +31,12 @@ const props = defineProps({
 
     &__image {
     //    width: 100%;
-        height: 110%;
+        height: 100%;
         cursor: pointer;
         filter: grayscale(.7);
         transition: 0.3s;
         &:hover {
             filter: grayscale(0.3);
-
         }
         &:hover+.assginment__polygon2 {
             transform: rotate(0deg);

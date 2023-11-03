@@ -20,6 +20,18 @@
             <option v-for="item in $store.state.fileList" :value="item">{{ item.split('_')[0] }}</option>
         </select>
         <div class="assignment1__chart" ref="chartRef"></div>
+        <h3 class="assignment1__stackchartTitle">--Compare tree species abundance--</h3>
+        <div class="assignment1__stackchart">
+            <div class="assignment1__stackchart__labels">
+                <p>SanDiego</p>
+                <p>Oakland</p>
+                <p>Anaheim</p>
+                <p>SanFrancisco</p>
+                <p>Sacramento</p>
+            </div>
+            <svg ref="chart"></svg>
+        </div>
+
     </div>
 </template>
 
@@ -44,9 +56,9 @@ export default {
                     let name = cur.scientific_name;
                     if (name !== 'NA') {
                         if (!acc[name]) {
-                            acc[name] = { count: 0, heightSum: 0, heightAvg: null, common_name:null };
+                            acc[name] = { count: 0, heightSum: 0, heightAvg: null, common_name: null };
                         }
-                        if(cur.common_name !== 'NA'){
+                        if (cur.common_name !== 'NA') {
                             acc[name].common_name = cur.common_name;
                         }
                         if (cur.height_M !== 'NA') {
@@ -67,14 +79,14 @@ export default {
                     value: stats.count
                 }));
                 let sortedTreeData = treeData.sort((a, b) => a.value - b.value);
-                console.log("ppp",sortedTreeData);
+                console.log("ppp", sortedTreeData);
 
-                
-                
+
+
                 // console.log(treeStats);
                 let margin = { top: 20, right: 30, bottom: 30, left: 150 };
                 let width = 1220 - margin.left - margin.right;
-                let height = (sortedTreeData.length*20) - margin.top - margin.bottom;
+                let height = (sortedTreeData.length * 20) - margin.top - margin.bottom;
 
                 let svg = d3.select(chartRef.value)
                     .append('svg')
@@ -120,7 +132,7 @@ export default {
                         d3.select(this).style('fill', '#333333');
                         svg.append('rect')
                             .attr('class', 'tooltip-background')
-                            .attr('x', x(d.value)/2)
+                            .attr('x', x(d.value) / 2)
                             .attr('y', y(d.name) + y.bandwidth() / 2 - 15)
                             .attr('rx', '5')
                             .attr('ry', '5')
@@ -129,7 +141,7 @@ export default {
                             .style('fill', '#fff');
                         svg.append('text')
                             .attr('class', 'tooltip-text')
-                            .attr('x', x(d.value)/2)
+                            .attr('x', x(d.value) / 2)
                             .attr('y', y(d.name) + y.bandwidth() / 2)
                             .style('font-size', '12px')
                             .style('fill', '#333333')
@@ -137,7 +149,7 @@ export default {
                             .data([`Count: ${d.value}`, `Common Name: ${d.common_name}`, `Average height: ${Number((d.heightAvg)?.toFixed(2))}`]) // Define an array of lines
                             .enter()
                             .append('tspan')
-                            .attr('x', x(d.value)/2 +10)
+                            .attr('x', x(d.value) / 2 + 10)
                             .attr('dy', 12) // Adjust the line spacing as needed
                             .text(d => d);
                     })
@@ -157,11 +169,81 @@ export default {
                 //     .attr('text-anchor', 'start').style('fill', '#fff');;
             })
         }
+
+        const data = ref([])
+        const chart = ref(null);
+        const generateStackChart = () => {
+            d3.csv(`data/finalComparisonTable.csv`).then((results) => {
+                data.value = results;
+                console.log(data.value);
+
+                // Define chart dimensions
+                const margin = { top: 20, right: 30, bottom: 30, left: 80 };
+                const width = 1000 - margin.left - margin.right;
+                const height = 400 - margin.top - margin.bottom;
+
+                // Create SVG element
+                const svg = d3.select(chart.value)
+                    .attr("width", width + margin.left + margin.right)
+                    .attr("height", height + margin.top + margin.bottom)
+                    .append("g")
+                    .style("color", '#b3b3b3')
+                    .attr("transform", `translate(${margin.left},${margin.top})`);
+
+                // Prepare data for stacking
+                const keys = Object.keys(data.value[0]).slice(1, -1);
+                const stack = d3.stack().keys(keys);
+                const stackedData = stack(data.value);
+
+                // Define color scale
+                const color = d3.scaleSequential(d3.interpolateGreys)
+                    .domain([0, keys.length - 1])
+                    .nice(keys.length);
+
+                // Create x and y scales
+                const x = d3.scaleLinear()
+                    .domain([0, d3.max(stackedData, d => d3.max(d, d => d[1]))])
+                    .range([0, width]);
+
+                const y = d3.scaleBand()
+                    .domain(data.value.map(d => d.city))
+                    .range([0, height])
+                    .padding(0.1);
+
+                // Create stacked bars
+                svg.selectAll("g")
+                    .data(stackedData)
+                    .enter().append("g")
+                    .attr("fill", (d, i) => color(i))
+                    .selectAll("rect")
+                    .data(d => d)
+                    .enter().append("rect")
+                    .attr("x", d => x(d[0]))
+                    .attr("y", d => y(d.data.city))
+                    .attr('width', 0)
+                    .attr("height", y.bandwidth())
+                    .transition()
+                    .duration(1000)
+                    .attr("width", d => x(d[1]) - x(d[0]));
+
+                // Add x-axis
+                svg.append("g")
+                    .attr("transform", `translate(0,${height})`)
+                    .style("color", '#b3b3b3')
+                    .call(d3.axisBottom(x));
+
+                // Add y-axis
+                svg.append("g")
+                    .call(d3.axisLeft(y));
+
+            })
+        }
         onMounted(() => {
             generateBarChart(selected.value);
+            generateStackChart();
         });
 
-        return { chartRef, selected, generateBarChart };
+        return { chart, chartRef, selected, generateBarChart };
     },
 };
 </script>
@@ -175,9 +257,47 @@ export default {
     height: 100%;
     overflow-x: hidden;
     overflow-y: auto;
+
     &__chart {
         // z-index: 2;
     }
+    &__stackchartTitle{
+        font-size: 2rem;
+        margin-bottom: 40px;
+        color: white;
+        margin-top: 80px;
+    }
+    &__stackchart {
+        &__labels{
+            display: flex;
+            justify-content: space-around;
+            p{
+                padding: 3px 17px;
+                border-radius: 7px;
+                &:nth-of-type(1){
+                    color:#191a21;
+                    background-color:rgb(231, 231, 231);
+                }
+                &:nth-of-type(2){
+                    color:#191a21;
+                    background-color:rgb(178, 178, 178);
+                }
+                &:nth-of-type(3){
+                    color:#000000;
+                    background-color:rgb(120, 120, 120);
+                }
+                &:nth-of-type(4){
+                    color:#040506;
+                    background-color:rgb(58, 58, 58);
+                }
+                &:nth-of-type(5){
+                    color:#5d5d5d;
+                    background-color:black ;
+                }
+            }
+        }
+    }
+
     &__header {
         width: 100%;
         display: flex;
