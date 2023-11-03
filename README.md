@@ -15,7 +15,7 @@
 
 ## Introduction
 
-Welcome to the Data Visualization project repository! This project focuses on using modern web technologies to create interactive and insightful data visualizations. We leverage Vue 3 Composition API, Vite, SCSS for front-end development, and D3.js for creating dynamic charts and plots. The data is preprocessed using Python, typically done in a Jupyter Notebook on Google Colab. This README provides an overview of the project, its technologies, and how to get started.
+Welcome to the Data Visualization project repository! This project focuses on using modern web technologies to create interactive and insightful data visualizations. We leverage Vue 3 Composition API, Vite, and SCSS for front-end development, and D3.js for creating dynamic charts and plots. The data is preprocessed using Python and Pandas for data cleaning and preparation. This README provides an overview of the project, its technologies, and how to get started.
 
 ## Team
 
@@ -36,6 +36,9 @@ SCSS is a popular CSS preprocessor that offers features like variables, nesting,
 
 ### D3.js
 D3.js is a widely-used JavaScript library for creating data visualizations in the browser. It provides a powerful set of tools for creating interactive charts, graphs, and other data-driven visual elements.
+
+### Python and Pandas
+Python, along with the Pandas library, is used for data preprocessing and cleaning. You can perform various data transformations and ensure that your data is ready for visualization.
 
 ## Project Structure
 
@@ -94,7 +97,7 @@ data-visualization-project/
 
 ## Data Preprocessing
 
-Before using the data in your visualization, you may need to preprocess it. Typically, data preprocessing is performed using Python, and a Jupyter Notebook environment like Google Colab is a great choice. Once the data is ready, you can export it in a format that the front-end can consume (e.g., JSON or CSV).
+Before using the data in your visualization, you may need to preprocess and clean it. Python, along with the Pandas library, is a powerful choice for data preprocessing. You can perform tasks such as data cleaning, transformation, and data structure adjustments to ensure that your data is ready for visualization.
 
 ## Creating Visualizations
 
@@ -118,4 +121,4 @@ Contributions to this project are welcome! If you want to improve or expand the 
 
 This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
 
-We hope you find this project and its technologies helpful for your data visualization needs. If you have any questions or need assistance, please don't hesitate to reach out to us. Enjoy visualizing your data with Vue 3 Composition API, Vite, SCSS, and D3.js!
+We hope you find this project and its technologies helpful for your data visualization needs. If you have any questions or need assistance, please don't hesitate to reach out to us. Enjoy visualizing your data with Vue 3 Composition API, Vite, SCSS, D3.js, Python, and Pandas!
