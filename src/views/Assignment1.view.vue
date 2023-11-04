@@ -23,15 +23,18 @@
         <h3 class="assignment1__stackchartTitle">--Compare tree species abundance--</h3>
         <div class="assignment1__stackchart">
             <div class="assignment1__stackchart__labels">
-                <p>SanDiego</p>
-                <p>Oakland</p>
-                <p>Anaheim</p>
-                <p>SanFrancisco</p>
-                <p>Sacramento</p>
+                <p>Platanus acerifolia</p>
+                <p>Syagrus romanzoffianum</p>
+                <p>Washingtonia robusta</p>
+                <p>Magnolia grandiflora</p>
+                <p>Liquidambar styraciflua</p>
             </div>
             <svg ref="chart"></svg>
         </div>
-
+        <h3 class="assignment1__stackchartTitle">--Compare tree species abundance heatmap--</h3>
+        <div>
+            <svg ref="heatmap"></svg>
+        </div>
     </div>
 </template>
 
@@ -238,12 +241,91 @@ export default {
 
             })
         }
+
+        const heatmap = ref(null);
+        const data3 = ref([])
+        const generateHitmap = () => {
+            d3.csv(`data/finalComparisonTable.csv`).then((results) => {
+                data3.value = results;
+                const margin = { top: 40, right: 20, bottom: 40, left: 80 };
+                const width = 1000 - margin.left - margin.right;
+                const height = 400 - margin.top - margin.bottom;
+
+                const svg = d3.select(heatmap.value)
+                    .attr("width", width + margin.left + margin.right)
+                    .attr("height", height + margin.top + margin.bottom)
+                    .append("g")
+                    .style("color","#b3b3b3")
+                    .attr("transform", `translate(${margin.left},${margin.top})`);
+
+                const keys = Object.keys(data3.value[0]).slice(1, -1);
+                const cities = data3.value.map(d => d.city);
+
+                const x = d3.scaleBand()
+                    .domain(keys)
+                    .range([0, width])
+                    .padding(0.1);
+
+                const y = d3.scaleBand()
+                    .domain(cities)
+                    .range([0, height])
+                    .padding(0.1);
+
+                // Use a quantize scale with a custom color range
+                const maxBlockValue = d3.max(data3.value, d => d3.max(keys, key => +d[key]));
+
+                const colorScale = d3.scaleSequential(d3.interpolateGreys)
+                    .domain([0, maxBlockValue])
+                    .nice();
+                console.log(colorScale(100))
+                svg.selectAll()
+                    .data(data3.value)
+                    .enter()
+                    .append("g")
+                    .selectAll("rect")
+                    .data(d => keys.map(key => ({ city: d.city, key, value: +d[key] })))
+                    .enter()
+                    .append("rect")
+                    .attr("x", d => x(d.key))
+                    .attr("y", d => y(d.city))
+                    .attr("width", x.bandwidth())
+                    .attr("height", y.bandwidth())
+                    .attr("fill", d => colorScale(d.value));
+
+                // Add text labels for block values
+                svg.selectAll()
+                    .data(data3.value)
+                    .enter()
+                    .append("g")
+                    .selectAll("text")
+                    .data(d => keys.map(key => ({ city: d.city, key, value: +d[key] })))
+                    .enter()
+                    .append("text")
+                    .text(d => d.value)
+                    .attr("x", d => x(d.key) + x.bandwidth() / 2)
+                    .attr("y", d => y(d.city) + y.bandwidth() / 2)
+                    .attr("text-anchor", "middle")
+                    .attr("dy", "0.35em")
+                    .style("fill", d => (d3.lab(colorScale(d.value)).l < 70) ? "white" : "black"); // Change text color to white
+
+                // Add x-axis
+                svg.append("g")
+                    .attr("transform", `translate(0,${height})`)
+                    .call(d3.axisBottom(x));
+
+                // Add y-axis
+                svg.append("g")
+                    .call(d3.axisLeft(y));
+            })
+        }
+
         onMounted(() => {
             generateBarChart(selected.value);
             generateStackChart();
+            generateHitmap();
         });
 
-        return { chart, chartRef, selected, generateBarChart };
+        return { heatmap, chart, chartRef, selected, generateBarChart };
     },
 };
 </script>
@@ -261,38 +343,46 @@ export default {
     &__chart {
         // z-index: 2;
     }
-    &__stackchartTitle{
+
+    &__stackchartTitle {
         font-size: 2rem;
         margin-bottom: 40px;
         color: white;
         margin-top: 80px;
     }
+
     &__stackchart {
-        &__labels{
+        &__labels {
             display: flex;
             justify-content: space-around;
-            p{
+
+            p {
                 padding: 3px 17px;
                 border-radius: 7px;
-                &:nth-of-type(1){
-                    color:#191a21;
-                    background-color:rgb(231, 231, 231);
+
+                &:nth-of-type(1) {
+                    color: #191a21;
+                    background-color: rgb(231, 231, 231);
                 }
-                &:nth-of-type(2){
-                    color:#191a21;
-                    background-color:rgb(178, 178, 178);
+
+                &:nth-of-type(2) {
+                    color: #191a21;
+                    background-color: rgb(178, 178, 178);
                 }
-                &:nth-of-type(3){
-                    color:#000000;
-                    background-color:rgb(120, 120, 120);
+
+                &:nth-of-type(3) {
+                    color: #000000;
+                    background-color: rgb(120, 120, 120);
                 }
-                &:nth-of-type(4){
-                    color:#040506;
-                    background-color:rgb(58, 58, 58);
+
+                &:nth-of-type(4) {
+                    color: #040506;
+                    background-color: rgb(58, 58, 58);
                 }
-                &:nth-of-type(5){
-                    color:#5d5d5d;
-                    background-color:black ;
+
+                &:nth-of-type(5) {
+                    color: #5d5d5d;
+                    background-color: black;
                 }
             }
         }
