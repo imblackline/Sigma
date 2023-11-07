@@ -136,7 +136,7 @@ export default {
                         svg.append('rect')
                             .attr('class', 'tooltip-background')
                             .attr('x', x(d.value) / 2)
-                            .attr('y', y(d.name) + y.bandwidth() / 2 - 15)
+                            .attr('y', y(d.name) + y.bandwidth() / 2 + 15)
                             .attr('rx', '5')
                             .attr('ry', '5')
                             .attr('width', '250')
@@ -145,7 +145,7 @@ export default {
                         svg.append('text')
                             .attr('class', 'tooltip-text')
                             .attr('x', x(d.value) / 2)
-                            .attr('y', y(d.name) + y.bandwidth() / 2)
+                            .attr('y', y(d.name) + y.bandwidth() / 2 + 20)
                             .style('font-size', '12px')
                             .style('fill', '#333333')
                             .selectAll('tspan')
@@ -197,7 +197,7 @@ export default {
                 const keys = Object.keys(data.value[0]).slice(1, -1);
                 const stack = d3.stack().keys(keys);
                 const stackedData = stack(data.value);
-
+                console.log("oooo", stackedData, data.value)
                 // Define color scale
                 const color = d3.scaleSequential(d3.interpolateGreys)
                     .domain([0, keys.length - 1])
@@ -214,11 +214,12 @@ export default {
                     .padding(0.1);
 
                 // Create stacked bars
-                svg.selectAll("g")
+                const bars = svg.selectAll("g")
                     .data(stackedData)
                     .enter().append("g")
-                    .attr("fill", (d, i) => color(i))
-                    .selectAll("rect")
+                    .attr("fill", (d, i) => color(i));
+
+                bars.selectAll("rect")
                     .data(d => d)
                     .enter().append("rect")
                     .attr("x", d => x(d[0]))
@@ -239,7 +240,40 @@ export default {
                 svg.append("g")
                     .call(d3.axisLeft(y));
 
-            })
+                // Add tooltips
+                bars.selectAll("rect")
+                    .on('mouseover', function (event, d) {
+                        d3.select(this).style('fill', 'balck');
+                        svg.append('rect')
+                            .attr('class', 'tooltip-background')
+                            .attr('x', x(d[0]))
+                            .attr('y', y(d.data.city) + y.bandwidth() / 2 + 25)
+                            .attr('rx', '5')
+                            .attr('ry', '5')
+                            .attr('width', '120')
+                            .attr('height', '40')
+                            .style('fill', '#fff');
+                        svg.append('text')
+                            .attr('class', 'tooltip-text')
+                            .attr('x', x(d[0]) + 5)
+                            .attr('y', y(d.data.city) + y.bandwidth() / 2 + 30)
+                            .style('font-size', '12px')
+                            .style('fill', '#333333')
+                            .selectAll('tspan')
+                            .data([`Count: ${d[1] - d[0]}`]) // Define an array of lines
+                            .enter()
+                            .append('tspan')
+                            .attr('x', x(d) / 2 + 10)
+                            .attr('dy', 12) // Adjust the line spacing as needed
+                            .text(d => d);
+                    })
+                    .on('mouseout', function (event, d) {
+                        d3.select(this);
+                        svg.select('.tooltip-background').remove();
+                        svg.select('.tooltip-text').remove();
+                    });
+            });
+
         }
 
         const heatmap = ref(null);
@@ -255,7 +289,7 @@ export default {
                     .attr("width", width + margin.left + margin.right)
                     .attr("height", height + margin.top + margin.bottom)
                     .append("g")
-                    .style("color","#b3b3b3")
+                    .style("color", "#b3b3b3")
                     .attr("transform", `translate(${margin.left},${margin.top})`);
 
                 const keys = Object.keys(data3.value[0]).slice(1, -1);
@@ -277,7 +311,7 @@ export default {
                 const colorScale = d3.scaleSequential(d3.interpolateGreys)
                     .domain([0, maxBlockValue])
                     .nice();
-                console.log(colorScale(100))
+
                 svg.selectAll()
                     .data(data3.value)
                     .enter()
@@ -290,7 +324,38 @@ export default {
                     .attr("y", d => y(d.city))
                     .attr("width", x.bandwidth())
                     .attr("height", y.bandwidth())
-                    .attr("fill", d => colorScale(d.value));
+                    .attr("fill", d => colorScale(d.value))
+                    .on('mouseover', function (event, d) {
+                        d3.select(this).style('fill', 'balck');
+                        svg.append('rect')
+                            .attr('class', 'tooltip-background')
+                            .attr('x', x(d.key))
+                            .attr('y', y(d.city) + y.bandwidth() / 2 + 30)
+                            .attr('rx', '5')
+                            .attr('ry', '5')
+                            .attr('width', '120')
+                            .attr('height', '40')
+                            .style('outline', '2px dashed black')
+                            .style('fill', '#fff');
+                        svg.append('text')
+                            .attr('class', 'tooltip-text')
+                            .attr('x', x(d.key) + 5)
+                            .attr('y', y(d.city) + y.bandwidth() / 2 + 35)
+                            .style('font-size', '12px')
+                            .style('fill', '#333333')
+                            .selectAll('tspan')
+                            .data([`Count: ${d.value}`]) // Define an array of lines
+                            .enter()
+                            .append('tspan')
+                            .attr('x', x(d) / 2 + 10)
+                            .attr('dy', 12) // Adjust the line spacing as needed
+                            .text(d => d);
+                    })
+                    .on('mouseout', function (event, d) {
+                        d3.select(this);
+                        svg.select('.tooltip-background').remove();
+                        svg.select('.tooltip-text').remove();
+                    });
 
                 // Add text labels for block values
                 svg.selectAll()
@@ -316,7 +381,7 @@ export default {
                 // Add y-axis
                 svg.append("g")
                     .call(d3.axisLeft(y));
-            })
+            });
         }
 
         onMounted(() => {
