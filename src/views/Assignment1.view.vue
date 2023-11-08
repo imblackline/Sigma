@@ -9,7 +9,6 @@
                     </svg>
                 </button>
             </div>
-            <!-- <h1 class="assignment1__header__title">Comparing categories</h1> -->
             <section class="wrapper">
                 <div class="top">Comparing categories</div>
                 <div class="bottom" aria-hidden="true">Comparing categories</div>
@@ -30,6 +29,16 @@
                 <p>Liquidambar styraciflua</p>
             </div>
             <svg ref="chart"></svg>
+        </div>
+        <div class="assignment1__stackchart">
+            <div class="assignment1__stackchart__labels">
+                <!-- <p>Platanus acerifolia</p>
+                <p>Syagrus romanzoffianum</p>
+                <p>Washingtonia robusta</p>
+                <p>Magnolia grandiflora</p>
+                <p>Liquidambar styraciflua</p> -->
+            </div>
+            <svg ref="chartPercentage"></svg>
         </div>
         <h3 class="assignment1__stackchartTitle">--Compare tree species abundance heatmap--</h3>
         <div>
@@ -384,13 +393,120 @@ export default {
             });
         }
 
+        const data4 = ref([])
+        const chartPercentage = ref(null);
+        const generateStackedPercentageChart = () => {
+            d3.csv(`data/finalComparisonTable.csv`).then((results) => {
+                data4.value = results;
+                console.log(data4.value);
+
+                // Define chart dimensions
+                const margin = { top: 20, right: 30, bottom: 30, left: 80 };
+                const width = 1000 - margin.left - margin.right;
+                const height = 400 - margin.top - margin.bottom;
+
+                // Create SVG element
+                const svg = d3.select(chartPercentage.value)
+                    .attr("width", width + margin.left + margin.right)
+                    .attr("height", height + margin.top + margin.bottom)
+                    .append("g")
+                    .style("color", '#b3b3b3')
+                    .attr("transform", `translate(${margin.left},${margin.top})`);
+
+                // Prepare data for stacking
+                const keys = Object.keys(data4.value[0]).slice(1, -1);
+                const stack = d3.stack().keys(keys);
+                const stackedData = stack(data4.value);
+                // Define color scale
+                const color = d3.scaleSequential(d3.interpolateGreys)
+                    .domain([0, keys.length - 1])
+                    .nice(keys.length);
+
+                //
+                const totalValues = data4.value.map((d) => keys.reduce((total, key) => total + +d[key], 0));
+
+                // Create x and y scales
+                const x = d3.scaleLinear()
+                    .domain([0, 100])
+                    .range([0, 920]);
+
+                const y = d3.scaleBand()
+                    .domain(data4.value.map(d => d.city))
+                    .range([0, height])
+                    .padding(0.1);
+
+                console.log("kkkkkkkkkkk", stackedData, totalValues)
+                // Create stacked bars
+                const bars = svg.selectAll("g")
+                    .data(stackedData)
+                    .enter().append("g")
+                    .attr("fill", (d, i) => color(i));
+
+                bars.selectAll("rect")
+                    .data(d => d)
+                    .enter().append("rect")
+                    .attr("x", (d, i) => x(d[0]) / totalValues[i] * 100)
+                    .attr("y", d => y(d.data.city))
+                    .attr('width', 0)
+                    .attr("height", y.bandwidth())
+                    .transition()
+                    .duration(1000)
+                    .attr("width", d => x(d[1]) - x(d[0]));
+
+                // Add x-axis
+                svg.append("g")
+                    .attr("transform", `translate(0,${height})`)
+                    .style("color", '#b3b3b3')
+                    .call(d3.axisBottom(x));
+
+                // Add y-axis
+                svg.append("g")
+                    .call(d3.axisLeft(y));
+
+                // Add tooltips
+                bars.selectAll("rect")
+                    .on('mouseover', function (event, d) {
+                        d3.select(this).style('fill', 'balck');
+                        svg.append('rect')
+                            .attr('class', 'tooltip-background')
+                            .attr('x', x(d[0]))
+                            .attr('y', y(d.data.city) + y.bandwidth() / 2 + 25)
+                            .attr('rx', '5')
+                            .attr('ry', '5')
+                            .attr('width', '120')
+                            .attr('height', '40')
+                            .style('fill', '#fff');
+                        svg.append('text')
+                            .attr('class', 'tooltip-text')
+                            .attr('x', x(d[0]) + 5)
+                            .attr('y', y(d.data.city) + y.bandwidth() / 2 + 30)
+                            .style('font-size', '12px')
+                            .style('fill', '#333333')
+                            .selectAll('tspan')
+                            .data([`Count: ${d[1] - d[0]}`]) // Define an array of lines
+                            .enter()
+                            .append('tspan')
+                            .attr('x', x(d) / 2 + 10)
+                            .attr('dy', 12) // Adjust the line spacing as needed
+                            .text((d,i) => d);
+                    })
+                    .on('mouseout', function (event, d) {
+                        d3.select(this);
+                        svg.select('.tooltip-background').remove();
+                        svg.select('.tooltip-text').remove();
+                    });
+            });
+        }
+
+
         onMounted(() => {
             generateBarChart(selected.value);
             generateStackChart();
             generateHitmap();
+            generateStackedPercentageChart();
         });
 
-        return { heatmap, chart, chartRef, selected, generateBarChart };
+        return { chartPercentage, heatmap, chart, chartRef, selected, generateBarChart };
     },
 };
 </script>
