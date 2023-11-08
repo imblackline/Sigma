@@ -463,13 +463,19 @@ export default {
                 svg.append("g")
                     .call(d3.axisLeft(y));
 
-                // Add tooltips
+                //Add tooltips
                 bars.selectAll("rect")
                     .on('mouseover', function (event, d) {
                         d3.select(this).style('fill', 'balck');
+                        const dataIndex = ref(); 
+                        stackedData.forEach((sd, i) => {
+                            if (sd.indexOf(d) != -1) {
+                                dataIndex.value = sd.indexOf(d);
+                            }
+                        });
                         svg.append('rect')
                             .attr('class', 'tooltip-background')
-                            .attr('x', x(d[0]))
+                            .attr('x', x(d[0]) / totalValues[dataIndex.value] * 100)
                             .attr('y', y(d.data.city) + y.bandwidth() / 2 + 25)
                             .attr('rx', '5')
                             .attr('ry', '5')
@@ -478,7 +484,7 @@ export default {
                             .style('fill', '#fff');
                         svg.append('text')
                             .attr('class', 'tooltip-text')
-                            .attr('x', x(d[0]) + 5)
+                            .attr('x', x(d[0]) / totalValues[dataIndex.value] * 100 + 5)
                             .attr('y', y(d.data.city) + y.bandwidth() / 2 + 30)
                             .style('font-size', '12px')
                             .style('fill', '#333333')
@@ -488,13 +494,16 @@ export default {
                             .append('tspan')
                             .attr('x', x(d) / 2 + 10)
                             .attr('dy', 12) // Adjust the line spacing as needed
-                            .text((d,i) => d);
+                            .text((d, i) => d);
                     })
                     .on('mouseout', function (event, d) {
                         d3.select(this);
                         svg.select('.tooltip-background').remove();
                         svg.select('.tooltip-text').remove();
                     });
+
+
+
             });
         }
 
