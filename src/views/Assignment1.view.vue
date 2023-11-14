@@ -14,7 +14,18 @@
                 <div class="bottom" aria-hidden="true">Comparing categories</div>
             </section>
         </div>
+        <h3 class="assignment1__stackchartTitle">--Tree species abundance at a glance--</h3>
+        <p class="assignment1__stackchartSubTitle">In this presentation, we present the most prevalent tree species in
+            various cities across the United States.
 
+            A dropdown menu is provided, allowing users to select a specific city from the dataset and view localized
+            information on the dominant tree types. To illustrate this data, we employ a bar chart as the chosen
+            visualization method.
+
+            The use of a bar chart is particularly suitable for this purpose because it enables a clear and concise
+            representation of the relative prevalence of tree types in a specific city. Each bar on the chart corresponds to
+            a tree species, and its height directly correlates with the frequency of that species in the selected city,
+            making it an effective tool for visualizing and comparing data across different locations.</p>
         <select v-model="selected" @change="generateBarChart(selected)">
             <option v-for="item in $store.state.fileList" :value="item">{{ item.split('_')[0] }}</option>
         </select>
@@ -30,18 +41,34 @@
             </div>
             <svg ref="chart"></svg>
         </div>
+        <h3 class="assignment1__stackchartTitle">--Stacked bar chart 100%--</h3>
         <div class="assignment1__stackchart">
             <div class="assignment1__stackchart__labels">
-                <!-- <p>Platanus acerifolia</p>
+                <p>Platanus acerifolia</p>
                 <p>Syagrus romanzoffianum</p>
                 <p>Washingtonia robusta</p>
                 <p>Magnolia grandiflora</p>
-                <p>Liquidambar styraciflua</p> -->
+                <p>Liquidambar styraciflua</p>
             </div>
             <svg ref="chartPercentage"></svg>
         </div>
+        <div class="assignment1__stackchart">
+            <div v-for="cityData in cities" :key="cityData.city">
+                <h2>{{ cityData.city }}</h2>
+                <svg :ref="chartRefs[cityData.city]" width="400" height="200"></svg>
+            </div>
+        </div>
         <h3 class="assignment1__stackchartTitle">--Compare tree species abundance heatmap--</h3>
+        <p class="assignment1__stackchartSubTitle">In this presentation, we present a visual representation in the form of a
+            heatmap, illustrating the distribution of tree types in a selected subset of California.
+
+            The horizontal axis of the heatmap represents five major cities within the state, while the vertical axis
+            displays the prevalence of the five most common tree species found across these cities.
+
+            As indicated in the accompanying legend, the intensity of color in the heatmap corresponds to the relative
+            abundance of each tree type within a specific city.</p>
         <div>
+            <svg ref="colorBar"></svg>
             <svg ref="heatmap"></svg>
         </div>
     </div>
@@ -286,8 +313,9 @@ export default {
         }
 
         const heatmap = ref(null);
+        const colorBar = ref(null);
         const data3 = ref([])
-        const generateHitmap = () => {
+        const generateHeatmap = () => {
             d3.csv(`data/finalComparisonTable.csv`).then((results) => {
                 data3.value = results;
                 const margin = { top: 40, right: 20, bottom: 40, left: 80 };
@@ -300,6 +328,14 @@ export default {
                     .append("g")
                     .style("color", "#b3b3b3")
                     .attr("transform", `translate(${margin.left},${margin.top})`);
+
+                // Create the color bar SVG
+                const colorBarSvg = d3
+                    .select(colorBar.value)
+                    .attr('width', width + margin.left + margin.right - 100)
+                    .attr('height', 50)
+                    .append('g')
+                    .attr('transform', `translate(${margin.left},${5})`);
 
                 const keys = Object.keys(data3.value[0]).slice(1, -1);
                 const cities = data3.value.map(d => d.city);
@@ -390,8 +426,33 @@ export default {
                 // Add y-axis
                 svg.append("g")
                     .call(d3.axisLeft(y));
+
+                // Draw the color bar
+                colorBarSvg
+                    .selectAll('rect')
+                    .data(d3.range(0, maxBlockValue + 1, maxBlockValue / 10))
+                    .enter()
+                    .append('rect')
+                    .attr('x', (d, i) => i * (width / 10 - 15))
+                    .attr('width', width / 10)
+                    .attr('height', 20)
+                    .attr('fill', (d) => colorScale(d));
+
+                // Add range numbers below each color
+                colorBarSvg
+                    .selectAll('text')
+                    .data(d3.range(0, maxBlockValue + 1, maxBlockValue / 10))
+                    .enter()
+                    .append('text')
+                    .text((d) => d.toFixed(2)) // Adjust decimal places as needed
+                    .attr('x', (d, i) => i * (width / 10 - 15))
+                    .attr('y', 40)
+                    .attr('text-anchor', 'middle')
+                    .style('font-size', '12px')
+                    .style('fill', '#fff');
             });
         }
+
 
         const data4 = ref([])
         const chartPercentage = ref(null);
@@ -467,7 +528,7 @@ export default {
                 bars.selectAll("rect")
                     .on('mouseover', function (event, d) {
                         d3.select(this).style('fill', 'balck');
-                        const dataIndex = ref(); 
+                        const dataIndex = ref();
                         stackedData.forEach((sd, i) => {
                             if (sd.indexOf(d) != -1) {
                                 dataIndex.value = sd.indexOf(d);
@@ -481,6 +542,7 @@ export default {
                             .attr('ry', '5')
                             .attr('width', '120')
                             .attr('height', '40')
+                            .style('outline', '2px dashed black')
                             .style('fill', '#fff');
                         svg.append('text')
                             .attr('class', 'tooltip-text')
@@ -489,7 +551,7 @@ export default {
                             .style('font-size', '12px')
                             .style('fill', '#333333')
                             .selectAll('tspan')
-                            .data([`Count: ${d[1] - d[0]}`]) // Define an array of lines
+                            .data([`Amount: ${Number(((d[1] - d[0]) / totalValues[dataIndex.value] * 100)?.toFixed(2))}%`]) // Define an array of lines
                             .enter()
                             .append('tspan')
                             .attr('x', x(d) / 2 + 10)
@@ -507,15 +569,83 @@ export default {
             });
         }
 
+        const cities = ref([])
+        const chartRefs = ref([]);
+
+
+        const createStackedBarChart = (cityData, chartRef) => {
+            const svg = d3.select(chartRef);
+            console.log(chartRef);
+            // Define chart dimensions
+            const width = 400;
+            const height = 200;
+            const margin = { top: 20, right: 30, bottom: 30, left: 40 };
+
+            // Prepare data for stacking
+            const keys = Object.keys(cityData).filter(key => key !== 'city' && key !== 'total');
+            const stack = d3.stack().keys(keys);
+            const stackedData = stack([cityData]);
+
+            // Create a color scale for the bars
+            const color = d3.scaleOrdinal()
+                .domain(keys)
+                .range(d3.schemeCategory10);
+
+            // Create x and y scales
+            const x = d3.scaleBand()
+                .domain(keys)
+                .range([margin.left, width - margin.right])
+                .padding(0.1);
+
+            const y = d3.scaleLinear()
+                .domain([0, d3.max(stackedData[stackedData.length - 1], d => d[1])])
+                .nice()
+                .range([height - margin.bottom, margin.top]);
+
+            // Create the chart
+            svg.selectAll("g")
+                .data(stackedData)
+                .enter()
+                .append("g")
+                .attr("fill", d => color(d.key))
+                .selectAll("rect")
+                .data(d => d)
+                .enter()
+                .append("rect")
+                .attr("x", d => x(d.data.city))
+                .attr("y", d => y(d[1]))
+                .attr("height", d => y(d[0]) - y(d[1]))
+                .attr("width", x.bandwidth());
+
+            // Add x-axis
+            svg.append("g")
+                .attr("transform", `translate(0,${height - margin.bottom})`)
+                .call(d3.axisBottom(x));
+
+            // Add y-axis
+            svg.append("g")
+                .attr("transform", `translate(${margin.left},0)`)
+                .call(d3.axisLeft(y));
+        };
+
 
         onMounted(() => {
             generateBarChart(selected.value);
             generateStackChart();
-            generateHitmap();
+            generateHeatmap();
             generateStackedPercentageChart();
+
+            d3.csv(`data/finalComparisonTable.csv`).then((results) => {
+                cities.value = results;
+                cities.value.forEach(cityData => {
+                    chartRefs.value[cityData.city]
+                    console.log(chartRefs.value, cityData.city)
+                    createStackedBarChart(cityData, chartRefs.value[cityData.city]);
+                });
+            });
         });
 
-        return { chartPercentage, heatmap, chart, chartRef, selected, generateBarChart };
+        return { cities, colorBar, chartRefs, chartPercentage, heatmap, chart, chartRef, selected, generateBarChart };
     },
 };
 </script>
@@ -536,9 +666,15 @@ export default {
 
     &__stackchartTitle {
         font-size: 2rem;
-        margin-bottom: 40px;
         color: white;
         margin-top: 80px;
+        margin-bottom: 10px;
+    }
+
+    &__stackchartSubTitle {
+        color: #5d5d5d;
+        width: 70%;
+        margin-bottom: 20px;
     }
 
     &__stackchart {
@@ -551,12 +687,12 @@ export default {
                 border-radius: 7px;
 
                 &:nth-of-type(1) {
-                    color: #191a21;
+                    color: #2c2d31;
                     background-color: rgb(231, 231, 231);
                 }
 
                 &:nth-of-type(2) {
-                    color: #191a21;
+                    color: #2c2d31;
                     background-color: rgb(178, 178, 178);
                 }
 

@@ -102,7 +102,7 @@ export default {
         position: absolute;
         height: 25vmin;
         width: 40vmin;
-        background: #191a21;
+        background: #2c2d31;
         transform: translate(-60vmin, -24.5vmin);
       }
       
@@ -111,7 +111,7 @@ export default {
         position: absolute;
         height: 25vmin;
         width: 40vmin;
-        background: #191a21;
+        background: #2c2d31;
         transform: translate(-30vmin, 2.8vmin);
       }
     }

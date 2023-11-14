@@ -1,8 +1,11 @@
 <template>
     <div class="assginment" :class="{ 'deactive': !isActive }">
+        <span v-if="!isActive" class="material-icons-round assginment__visibilityIcon">
+            visibility_off
+        </span>
         <img v-if="imgUrl" class="assginment__image" :src="`img/${imgUrl}`" alt="" @click="$router.push(`${redirectUrl}`)">
         <SVGPolygon v-else class="assginment__polygon" :color="'#22232A'" @click="$router.push(`${redirectUrl}`)" />
-        <SVGPolygon class="assginment__polygon2" :color="'#353640'" />
+        <SVGPolygon class="assginment__polygon2" :color="'#51525e'" />
         <p class="assginment__name">{{ assginmentName }}</p>
         <h2 class="assginment__number">{{ assginmentNumber }}</h2>
     </div>
@@ -24,20 +27,33 @@ const props = defineProps({
 
 <style lang="scss" scoped>
 .assginment {
+    color: #51525e;
     height: 200px;
     border-radius: 10px;
     width: 300px;
     position: relative;
-
+    &__visibilityIcon{
+        position: absolute;
+        top: 0;
+        left:0;
+        right: 0;
+        bottom: 0;
+        font-size: 3.5rem;
+        width:fit-content;
+        height:fit-content;
+        margin: auto;
+    }
     &__image {
-    //    width: 100%;
+        //    width: 100%;
         height: 100%;
         cursor: pointer;
-        filter: grayscale(.7);
+        filter: grayscale(.9);
         transition: 0.3s;
+
         &:hover {
             filter: grayscale(0.3);
         }
+
         &:hover+.assginment__polygon2 {
             transform: rotate(0deg);
         }
@@ -58,6 +74,7 @@ const props = defineProps({
         width: 100%;
         height: 100%;
         cursor: pointer;
+
         &:hover+.assginment__polygon2 {
             transform: rotate(0deg);
         }
