@@ -42,6 +42,7 @@ const props = defineProps({
         width:fit-content;
         height:fit-content;
         margin: auto;
+        transform: translateY(10px);
     }
     &__image {
         //    width: 100%;

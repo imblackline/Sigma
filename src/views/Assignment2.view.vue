@@ -23,22 +23,18 @@
 </template>
 
 <script setup>
-import { ref, computed, onMounted } from 'vue';
+import { ref, onMounted } from 'vue';
 import * as d3 from 'd3';
 import { sankey, sankeyLinkHorizontal } from 'd3-sankey';
 
 const sankeyChart = ref(null);
 onMounted(() => {
     var margin = { top: 20, right: 40, bottom: 70, left: 60 },
-        width = 1300 - margin.left - margin.right,
-        height = 1100 - margin.top - margin.bottom;
+        width = 1000 - margin.left - margin.right,
+        height = 2000 - margin.top - margin.bottom;
 
-    // format variables
-    var formatNumber = d3.format(",.0f"), // zero decimal places
-        format = function (d) { return formatNumber(d); },
-        color = d3.scaleOrdinal(d3.schemeCategory10);
+    var color = d3.scaleOrdinal(d3.schemeCategory10);
 
-    // append the svg object to the body of the page
     const svg = d3.select(sankeyChart.value).append("svg")
         .attr("width", width + margin.left + margin.right)
         .attr("height", height + margin.top + margin.bottom)
@@ -46,20 +42,13 @@ onMounted(() => {
         .attr("transform",
             "translate(" + margin.left + "," + margin.top + ")");
 
-    // Set the sankey diagram properties
     var sankey2 = sankey()
-        .nodeWidth(36)
+        .nodeWidth(40)
         .nodePadding(40)
         .size([width, height]);
-    //.nodeSort(null); // creates sankey nodes as ordered in the data 
 
-    var path = sankey2.links();
 
-    // load the data
-    // d3.csv('data/filtered_data.csv').then((data) => {
-    d3.csv('data/sankey_alternative.csv').then((data) => {
-
-        //set up graph in same style as original example but empty
+    d3.csv('data/filtered_data.csv').then((data) => {
         var sankeydata = { "nodes": [], "links": [] };
 
         data.forEach(function (d) {
@@ -91,8 +80,11 @@ onMounted(() => {
         sankeydata.nodes.forEach(function (d, i) {
             sankeydata.nodes[i] = { "name": d };
         });
+
         let graph = sankey2(sankeydata);
-        console.log(graph);
+        sankeydata.links.forEach(function (link) {
+            link.width = link.value / 1500 < 7 ? 7 : link.value / 1500; // You can adjust this based on your data
+        });
 
         // add in the links
         var link = svg.append("g").selectAll(".link")
@@ -105,7 +97,7 @@ onMounted(() => {
         // add the link titles
         link.append("title")
             .text(function (d) {
-                return d.source.name + " → " +
+                return d.source.name + " 👉🏻 " +
                     d.target.name + "\n" + d.value;
             });
 
@@ -118,10 +110,10 @@ onMounted(() => {
         // add the rectangles for the nodes
         node.append("rect")
             .attr("x", function (d) { return d.x0; })
-            .attr("y", function (d) { return d.y0; })
+            .attr("y", function (d) { return d.y0 - (d.value / 1500 < 7 ? 7 : d.value / 1500) / 2; })
             .style("stroke", "black")
             .style("stroke-width", 2)
-            .attr("height", function (d) { return d.y1 - d.y0; })
+            .attr("height", function (d) { return (d.value / 1500 < 7 ? 7 : d.value / 1500); })
             .attr("width", sankey2.nodeWidth())
             .style("fill", function (d) {
                 return d.color = color(d.name.replace(/ .*/, ""));
@@ -138,7 +130,7 @@ onMounted(() => {
 
         // add in the text for the nodes
         node.append("text")
-            .attr("x", function (d) { return d.x0 - 6; })
+            .attr("x", function (d) { return (d.x0 - 6); })
             .attr("y", function (d) { return (d.y1 + d.y0) / 2; })
             .attr("dy", "0.35em")
             .attr("text-anchor", "end")
@@ -158,25 +150,15 @@ onMounted(() => {
                     .attr("font-weight", "normal");
             });
 
-        // Add hover effects to links
-        link.on("mouseover", function () {
-            d3.select(this)
-                .attr("stroke-width", function (d) { console.log(d.width); if (d.width < 4) return 4; else return d.width; });
-        })
-            .on("mouseout", function () {
-                d3.select(this)
-                    .attr("stroke-width", function (d) { return d.width; });
-            });
 
     });
 })
-// set the dimensions and margins of the graph
+
 
 
 </script>
 
 <style lang="scss" scoped>
-
 .assignment2 {
     display: flex;
     flex-direction: column;
@@ -185,16 +167,20 @@ onMounted(() => {
     height: 100%;
     overflow-x: hidden;
     overflow-y: auto;
-    ::v-deep(){
+
+    ::v-deep() {
         .link {
             fill: none;
-            stroke: #000;
+            stroke: #161616;
             stroke-opacity: .2;
         }
-        
+
         .link:hover {
-            stroke-opacity: .5;
+            stroke: #000000;
+            stroke-opacity: 1;
         }
+
+
     }
 
 
