@@ -19,6 +19,11 @@
             <div ref="sankeyChart"></div>
         </div>
 
+        <h3 class="assignment2__Title">-- Taxonomic Rank --</h3>
+        <select v-model="selectedSpecies" @change="generateTaxonomic(selectedSpecies)">
+            <option v-for="item in speciesList" :value="item">{{ item }}</option>
+        </select>
+        <TaxonomicTree v-if="taxonomy" :taxonomy="taxonomy" />
     </div>
 </template>
 
@@ -26,9 +31,11 @@
 import { ref, onMounted } from 'vue';
 import * as d3 from 'd3';
 import { sankey, sankeyLinkHorizontal } from 'd3-sankey';
+import axios from 'axios';
+import TaxonomicTree from "@/components/TaxonomicTree.vue"
 
 const sankeyChart = ref(null);
-onMounted(() => {
+const createSankeyChart = () => {
     var margin = { top: 20, right: 40, bottom: 70, left: 60 },
         width = 1000 - margin.left - margin.right,
         height = 2000 - margin.top - margin.bottom;
@@ -61,13 +68,11 @@ onMounted(() => {
             });
         });
 
-        // return only the distinct / unique nodes
         sankeydata.nodes = Array.from(
             d3.group(sankeydata.nodes, d => d.name),
             ([value]) => (value)
         );
 
-        // loop through each link replacing the text with its index from node
         sankeydata.links.forEach(function (d, i) {
             sankeydata.links[i].source = sankeydata.nodes
                 .indexOf(sankeydata.links[i].source);
@@ -75,18 +80,14 @@ onMounted(() => {
                 .indexOf(sankeydata.links[i].target);
         });
 
-        // now loop through each nodes to make nodes an array of objects
-        // rather than an array of strings
         sankeydata.nodes.forEach(function (d, i) {
             sankeydata.nodes[i] = { "name": d };
         });
 
         let graph = sankey2(sankeydata);
         sankeydata.links.forEach(function (link) {
-            link.width = link.value / 1500 < 7 ? 7 : link.value / 1500; // You can adjust this based on your data
+            link.width = link.value / 1500 < 7 ? 7 : link.value / 1500;
         });
-
-        // add in the links
         var link = svg.append("g").selectAll(".link")
             .data(graph.links)
             .enter().append("path")
@@ -94,20 +95,17 @@ onMounted(() => {
             .attr("d", sankeyLinkHorizontal())
             .attr("stroke-width", function (d) { return d.width; });
 
-        // add the link titles
         link.append("title")
             .text(function (d) {
                 return d.source.name + " 👉🏻 " +
                     d.target.name + "\n" + d.value;
             });
 
-        // add in the nodes
         var node = svg.append("g").selectAll(".node")
             .data(graph.nodes)
             .enter().append("g")
             .attr("class", "node");
 
-        // add the rectangles for the nodes
         node.append("rect")
             .attr("x", function (d) { return d.x0; })
             .attr("y", function (d) { return d.y0 - (d.value / 1500 < 7 ? 7 : d.value / 1500) / 2; })
@@ -122,13 +120,11 @@ onMounted(() => {
                 return d3.rgb(d.color);
             });
 
-        // add the title for the nodes
         node.append("title")
             .text(function (d) {
                 return d.name + "\n" + d.value;
             });
 
-        // add in the text for the nodes
         node.append("text")
             .attr("x", function (d) { return (d.x0 - 6); })
             .attr("y", function (d) { return (d.y1 + d.y0) / 2; })
@@ -140,7 +136,6 @@ onMounted(() => {
             .attr("x", function (d) { return d.x1 + 6; })
             .attr("text-anchor", "start");
 
-        // Add hover effects to nodes
         node.on("mouseover", function () {
             d3.select(this)
                 .attr("font-weight", "bold");
@@ -152,6 +147,20 @@ onMounted(() => {
 
 
     });
+}
+
+const speciesList = ref(['Platanus acerifolia',
+    'Tilia cordata', 'Acer rubrum', 'Acer saccharum', 'Pyrus calleryana', 'Acer platanoides', 'Malus', 'Acer saccharinum', 'Fraxinus pennsylvanica', 'Gleditsia triacanthos']);
+const selectedSpecies = ref(speciesList.value[0]);
+const taxonomy = ref();
+const generateTaxonomic = (selected) => {
+    axios.get(`https://api.gbif.org/v1/species?name=${selected}`).then((res) => {
+        taxonomy.value = res.data.results[0];
+    })
+}
+onMounted(() => {
+    createSankeyChart();
+    generateTaxonomic(selectedSpecies.value);
 })
 
 
