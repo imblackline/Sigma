@@ -687,12 +687,12 @@ export default {
                 border-radius: 7px;
 
                 &:nth-of-type(1) {
-                    color: #2c2d31;
+                    color: #313236;
                     background-color: rgb(231, 231, 231);
                 }
 
                 &:nth-of-type(2) {
-                    color: #2c2d31;
+                    color: #313236;
                     background-color: rgb(178, 178, 178);
                 }
 

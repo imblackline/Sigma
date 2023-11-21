@@ -24,7 +24,7 @@ html {
   transform: translateZ(0);
   overflow: hidden;
   // background-color: #191a21;
-  background-color: #2c2d31;
+  background-color: #313236;
 }
 
 #app {

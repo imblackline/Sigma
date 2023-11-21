@@ -15,11 +15,103 @@
             </section>
         </div>
         <h3 class="assignment2__Title">-- Alluvial --</h3>
+        <h4 class="assignment2__SubTitle">___ Data Description: ___</h4>
+        <p class="assignment2__Detail">
+            The provided code seems to be related to visualizing data using a Sankey plot, which typically represents flows
+            or relationships between different categories or entities. Let's break down the data description based on the
+            code snippets:
+            <br><br>
+            <b>1- Data Structure:</b>
+
+            The data is likely in a CSV format with each row representing a data point.
+            Original Data Format: "city, state, scientific_name" <br>
+            <b>2- Data Example:</b>
+            The data could be related to some ecological or geographical information where entities (like cities, states,
+            and scientific names) have relationships or connections.<br>
+        </p>
+        <h4 class="assignment2__SubTitle">___ Data Cleaning Description: ___</h4>
+        <p class="assignment2__Detail">
+            The data cleaning process involves preparing the data for analysis and visualization. Although the specific
+            cleaning steps depend on the nature of the data and the analysis requirements, here are some general
+            considerations:
+            <br>
+            <br>
+            <b>1-Handling Missing Values:</b>
+
+            Check for and handle any missing values in the dataset, either by imputation or removal of incomplete records.
+            <br>
+            <b>2-Data Types:</b>
+            Ensure that data types are appropriate for each column (e.g., numerical values are numeric, categorical values
+            are categorical).
+            <br>
+            <b>3-Duplicates:</b>
+            Remove any duplicate records from the dataset to avoid skewing the analysis.
+            <br>
+            <b>4-Grouping and Aggregation:</b>
+            If necessary, group and aggregate data to the desired level for analysis.
+        </p>
+        <h4 class="assignment2__SubTitle">___ Why Use a Sankey Plot: ___</h4>
+        <p class="assignment2__Detail">
+            A Sankey plot is a specific type of flow diagram that visualizes the flow of resources or relationships between
+            multiple entities. Here's why a Sankey plot might be suitable for the provided data:
+            <br>
+            <br>
+            <b>1-Multilevel Relationships:</b>
+            Sankey plots are effective for displaying multilevel relationships between entities, such as cities within
+            states and scientific names within cities.
+            <br>
+            <br>
+            <b>2-Flow Representation:</b>
+            The plot visually represents the flow or connections between different levels, making it easy to understand the
+            distribution of entities.
+            <br>
+            <b>3-Quantity Representation:</b>
+            Sankey plots use varying widths of flows to represent the quantity of the relationships, providing a clear
+            indication of the strength of connections.
+            <br>
+            <b>4-Avoiding Overlapping Labels:</b>
+            In cases where there are multiple relationships, Sankey plots help avoid overlapping labels by arranging the
+            entities in a structured flow.
+            <br>
+            <b>5-Insight into Patterns:</b>
+            Sankey plots offer insights into patterns, proportions, and distributions within complex datasets.
+            <br>
+            <b>6-Effective Communication:</b>
+            Sankey plots are visually appealing and can effectively communicate complex relationships to both technical and
+            non-technical audiences.
+        </p>
+
         <div>
             <div ref="sankeyChart"></div>
         </div>
 
         <h3 class="assignment2__Title">-- Taxonomic Rank --</h3>
+        <h4 class="assignment2__SubTitle">___ Why Use Taxonomy Ranking Plot: ___</h4>
+        <p class="assignment2__Detail">
+            A taxonomy ranking plot, as demonstrated in the code, can be a visually effective way to represent hierarchical
+            relationships in biological classification. Here are reasons for using a taxonomy ranking plot:
+            <br>
+            <br>
+            <b>1- Hierarchy Visualization:</b>            
+            Taxonomy is inherently hierarchical, and a plot visually represents the levels of hierarchy, making it easy to
+            understand the relationships between different taxonomic ranks.
+            <br>
+            <b>2-Ease of Interpretation:</b>
+            A plot provides a clear and intuitive representation of the taxonomic structure, allowing users to quickly grasp
+            the classification of a species.
+            <br>
+            <b>3-Color-Coding for Differentiation:</b>
+            Using different colors for each taxonomic rank enhances differentiation and helps in identifying each level more
+            easily.
+            <br>
+            <b>4-Compact Representation:</b>
+            A plot condenses a significant amount of taxonomic information into a compact space, making it suitable for
+            quick reference or educational purposes.
+            <br>
+            <b>5-Customization and Styling:</b>
+            The use of Vue components allows for easy customization and styling, making it adaptable to different design
+            preferences or thematic requirements.
+        </p>
         <select v-model="selectedSpecies" @change="generateTaxonomic(selectedSpecies)">
             <option v-for="item in speciesList" :value="item">{{ item }}</option>
         </select>
@@ -196,7 +288,23 @@ onMounted(() => {
     &__Title {
         font-size: 2rem;
         color: white;
-        margin-top: 80px;
+        margin-top: 60px;
+        margin-bottom: 10px;
+    }
+
+    &__SubTitle {
+        // font-size: 2rem;
+        // color: white;
+        // margin-top: 80px;
+        font-size: 1.3rem;
+        margin-bottom: 20px;
+    }
+
+    &__Detail {
+        width: 70%;
+        text-align: justify;
+        border-bottom: 2px solid black;
+        padding-bottom: 10px;
         margin-bottom: 10px;
     }
 
@@ -315,5 +423,4 @@ onMounted(() => {
 
         }
     }
-}
-</style>
+}</style>
