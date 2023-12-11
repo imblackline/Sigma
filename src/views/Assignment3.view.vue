@@ -175,7 +175,7 @@ export default {
             // Create a new color scale for each chunk
             colorScale.domain(d3.range(1 * chunks[0].length, (1 + 1) * chunks[0].length));
             chunks.forEach((chunk, index) => {
-                legendOptions.push('1');
+                legendOptions.push(selectedYears.value[index]);
                 let months = [
                     "Jan", "Feb", "Mar", "Apr", "May", "Jun",
                     "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
@@ -215,6 +215,7 @@ export default {
                         }
 
                         cfg.maxValue = Math.max(cfg.maxValue, d3.max(data, function (i) { return d3.max(i.map(function (o) { return o.value; })); }));
+                        // console.log("fixxxxxx",data,chunks)
                         var allAxis = (data[0].map(function (i, j) { return i.axis; }));
                         var total = allAxis.length;
                         var radius = cfg.factor * Math.min(cfg.w / 2, cfg.h / 2);
@@ -222,6 +223,7 @@ export default {
                             d3.select(id)
                                 .select("svg").remove();
                         }
+                        d3.select(id).selectAll(".legend").remove();
                         if (g === undefined) {
                             g = d3.select(id)
                                 .append("svg")
@@ -267,7 +269,7 @@ export default {
                                 .style("font-size", textSizeLevels)
                                 .attr("transform", "translate(" + (cfg.w / 2 - levelFactor + cfg.ToRight) + ", " + (cfg.h / 2 - levelFactor) + ")")
                                 .attr("fill", "#737373")
-                                .text((j + 1) * cfg.maxValue / cfg.levels);
+                                .text(((j + 1) * cfg.maxValue / cfg.levels).toFixed(2));
                         }
 
                         let series = 0;
