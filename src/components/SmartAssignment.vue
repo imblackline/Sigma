@@ -27,7 +27,7 @@ const props = defineProps({
 
 <style lang="scss" scoped>
 .assginment {
-    color: #51525e;
+    color: #3f3f3f;
     height: 200px;
     border-radius: 10px;
     width: 300px;
@@ -82,7 +82,7 @@ const props = defineProps({
     }
 
     &__name {
-        color: rgb(121, 121, 121);
+        color: rgb(64, 64, 64);
         margin-top: 25px;
     }
 

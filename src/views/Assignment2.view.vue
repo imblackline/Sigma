@@ -92,7 +92,7 @@
             relationships in biological classification. Here are reasons for using a taxonomy ranking plot:
             <br>
             <br>
-            <b>1- Hierarchy Visualization:</b>            
+            <b>1- Hierarchy Visualization:</b>
             Taxonomy is inherently hierarchical, and a plot visually represents the levels of hierarchy, making it easy to
             understand the relationships between different taxonomic ranks.
             <br>
@@ -242,7 +242,7 @@ const createSankeyChart = () => {
 }
 
 const speciesList = ref(['Platanus acerifolia',
-    'Tilia cordata', 'Acer rubrum', 'Acer saccharum', 'Pyrus calleryana', 'Acer platanoides', 'Malus', 'Acer saccharinum', 'Fraxinus pennsylvanica', 'Gleditsia triacanthos']);
+    'Tilia cordata', 'Acer rubrum', 'Acer saccharum', 'Pyrus calleryana', 'Acer platanoides', 'Acer saccharinum', 'Fraxinus pennsylvanica', 'Gleditsia triacanthos']);
 const selectedSpecies = ref(speciesList.value[0]);
 const taxonomy = ref();
 const generateTaxonomic = (selected) => {
@@ -400,7 +400,7 @@ onMounted(() => {
             font-size: 4.5rem;
             font-weight: 700;
             text-transform: uppercase;
-            color: hsl(0, 0%, 70%);
+            color: hsl(0, 0%, 15%);
 
 
             &>div {
@@ -414,8 +414,8 @@ onMounted(() => {
             .bottom {
                 clip-path: polygon(0% 60%, 100% 45%, 100% 100%, 0% 100%);
                 color: transparent;
-                background: -webkit-linear-gradient(179deg, #191a21 53%, hsl(0, 0%, 70%) 65%);
-                background: linear-gradient(179deg, #191a21 53%, hsl(0, 0%, 70%) 65%);
+                background: -webkit-linear-gradient(179deg, #8d94b4 53%, hsl(0, 0%, 25%) 65%);
+                background: linear-gradient(179deg, #8d94b4 53%, hsl(0, 0%, 25%) 65%);
                 background-clip: text;
                 -webkit-background-clip: text;
                 transform: translateX(-0.02em);
@@ -423,4 +423,5 @@ onMounted(() => {
 
         }
     }
-}</style>
+}
+</style>
