@@ -14,6 +14,14 @@
                 <div class="bottom" aria-hidden="true">Timelines</div>
             </section>
         </div>
+        <h2 class="assignment3__Title">-- Line Chart --</h2>
+        <p class="assignment3__Detail">For this assignment, we applied a dataset containing temperature information in the
+            United States spanning the
+            years 1895 to 2023. In constructing the graph, we opted to use the Time scale function of d3 for the x-axis,
+            enabling users to pick time intervals from the dropdown menu. Simultaneously, we employed a linear scale
+            function for the y-axis to illustrate temperature. The graph visually displays three categories of data:
+            Maximum, Average, and Minimum temperatures.
+        </p>
         <div class="selection">
             <div class="stateContainer">
                 <label for="stateSelect">Select State:</label>
@@ -54,7 +62,7 @@
                 <div ref="radarChart3"></div>
             </div>
         </div>
-
+        <div ref="chartContainer"></div>
     </div>
 </template>
   
@@ -77,7 +85,6 @@ export default {
             await fetch('data/minData.txt').then((response) => {
                 return response.text();
             }).then((content) => {
-                // console.log("aaaaaaaaaaaaa", content);
                 const lines = content.split('\n');
                 const processedData = {};
                 lines.pop();
@@ -243,7 +250,6 @@ export default {
                         }
 
                         cfg.maxValue = Math.max(cfg.maxValue, d3.max(data, function (i) { return d3.max(i.map(function (o) { return o.value; })); }));
-                        // console.log("fixxxxxx",data,chunks)
                         var allAxis = (data[0].map(function (i, j) { return i.axis; }));
                         var total = allAxis.length;
                         var radius = cfg.factor * Math.min(cfg.w / 2, cfg.h / 2);
@@ -329,7 +335,6 @@ export default {
                             .attr("y", function (d, i) { return cfg.h / 2 * (1 - Math.cos(i * cfg.radians / total)) - 20 * Math.cos(i * cfg.radians / total); });
 
                         let dataValues = [];
-                        console.log("ooooooooooo", data)
                         data.forEach(function (y, x) {
                             g.selectAll(".nodes")
                                 .data(y, function (j, i) {
@@ -575,7 +580,6 @@ export default {
                         }
 
                         cfg.maxValue = Math.max(cfg.maxValue, d3.max(data, function (i) { return d3.max(i.map(function (o) { return o.value; })); }));
-                        // console.log("fixxxxxx",data,chunks)
                         var allAxis = (data[0].map(function (i, j) { return i.axis; }));
                         var total = allAxis.length;
                         var radius = cfg.factor * Math.min(cfg.w / 2, cfg.h / 2);
@@ -661,7 +665,6 @@ export default {
                             .attr("y", function (d, i) { return cfg.h / 2 * (1 - Math.cos(i * cfg.radians / total)) - 20 * Math.cos(i * cfg.radians / total); });
 
                         let dataValues = [];
-                        console.log("ooooooooooo", data)
                         data.forEach(function (y, x) {
                             g.selectAll(".nodes")
                                 .data(y, function (j, i) {
@@ -907,7 +910,6 @@ export default {
                         }
 
                         cfg.maxValue = Math.max(cfg.maxValue, d3.max(data, function (i) { return d3.max(i.map(function (o) { return o.value; })); }));
-                        // console.log("fixxxxxx",data,chunks)
                         var allAxis = (data[0].map(function (i, j) { return i.axis; }));
                         var total = allAxis.length;
                         var radius = cfg.factor * Math.min(cfg.w / 2, cfg.h / 2);
@@ -993,7 +995,6 @@ export default {
                             .attr("y", function (d, i) { return cfg.h / 2 * (1 - Math.cos(i * cfg.radians / total)) - 20 * Math.cos(i * cfg.radians / total); });
 
                         let dataValues = [];
-                        console.log("ooooooooooo", data)
                         data.forEach(function (y, x) {
                             g.selectAll(".nodes")
                                 .data(y, function (j, i) {
@@ -1245,7 +1246,6 @@ export default {
             }, {});
             selectedYears.value.forEach((selectedYear) => {
                 minProcessedDatas.value.push(...minProcessedData[Object.keys(minProcessedData)[0]][selectedYear]?.min)
-                // console.log("llllll2", minProcessedDatas.value)
             });
 
             let maxProcessedDatas = ref([]);
@@ -1266,10 +1266,10 @@ export default {
                 avgProcessedDatas.value.push(...avgProcessedData[Object.keys(avgProcessedData)[0]][selectedYear].avg)
             });
 
-            // console.log("rrrrrrrrr", maxProcessedDatas.value)
             createRadarChart(minProcessedDatas.value, maxProcessedDatas.value, avgProcessedDatas.value);
             createRadarChart2(minProcessedDatas.value, maxProcessedDatas.value, avgProcessedDatas.value);
             createRadarChart3(minProcessedDatas.value, maxProcessedDatas.value, avgProcessedDatas.value);
+            drawRidgeChart(minProcessedDatas.value, maxProcessedDatas.value);
 
             // Set up the chart dimensions
             const margin = { top: 20, right: 20, bottom: 50, left: 50 };
@@ -1435,17 +1435,186 @@ export default {
         ];
         const selectedState = ref(States[0]);
         const selectedYears = ref([Years[0]]);
-        console.log(Years)
+
+        const chartContainer = ref(null);
+        // This is what I need to compute kernel density estimation
+        // function kernelDensityEstimator(kernel, X, data) {
+        //     return X.map(function (x) {
+        //         return [x, d3.mean(data, function (v) { return kernel(x - v); })];
+        //     });
+        // }
+
+        // function kernelEpanechnikov(k) {
+        //     return function (v) {
+        //         return Math.abs(v /= k) <= 1 ? 0.75 * (1 - v * v) / k : 0;
+        //     };
+        // }
+        function kernelDensityEstimator(kernel, X) {
+            return function (V) {
+                return X.map(function (x) {
+                    return [x, d3.mean(V, function (v) { return kernel(x - v); })];
+                });
+            };
+        }
+        function kernelEpanechnikov(k) {
+            return function (v) {
+                return Math.abs(v /= k) <= 1 ? 0.75 * (1 - v * v) / k : 0;
+            };
+        }
+        const drawRidgeChart = (mindata, maxdata) => {
+            d3.select(chartContainer.value).select("svg").remove();
+            const margin = { top: 80, right: 30, bottom: 50, left: 110 },
+                width = 1000 - margin.left - margin.right,
+                height = (selectedYears.value.length * 50) + (500 - margin.top - margin.bottom);
+
+            // append the svg object to the body of the page
+            const svg = d3.select(chartContainer.value)
+                .append("svg")
+                .attr("width", width + margin.left + margin.right)
+                .attr("height", height + margin.top + margin.bottom)
+                .append("g")
+                .attr("transform",
+                    `translate(${margin.left}, ${margin.top})`);
+
+            //read data
+
+            let data = [];
+
+            // Iterate over the selectedYears and group values by months for each year
+            selectedYears.value.forEach((year, yearIndex) => {
+                for (let i = 0; i < 12; i++) {
+                    let dataIndex = yearIndex * 12 + i;
+                    let monthData = {};
+                    monthData[year] = mindata[dataIndex].toString();
+                    data.push(monthData);
+                }
+            });
+
+            let data2 = [];
+
+            // Iterate over the selectedYears and group values by months for each year
+            selectedYears.value.forEach((year, yearIndex) => {
+                for (let i = 0; i < 12; i++) {
+                    let dataIndex = yearIndex * 12 + i;
+                    let monthData = {};
+                    monthData[year] = maxdata[dataIndex].toString();
+                    data2.push(monthData);
+                }
+            });
+            console.log("ssssssssss", data);
+            // Get the different categories and count them
+            // const categories = ["Almost Certainly", "Very Good Chance", "We Believe", "Likely", "About Even", "Little Chance", "Chances Are Slight", "Almost No Chance"]
+            const categories = selectedYears.value;
+            const n = categories.length
+
+            // Compute the mean of each group
+            let allMeans = []
+            for (let i in categories) {
+                let currentGroup = categories[i]
+                let mean = d3.mean(data, function (d) { return +d[currentGroup] })
+                allMeans.push(mean)
+            }
+
+            let allMeans2 = []
+            for (let i in categories) {
+                let currentGroup = categories[i]
+                let mean = d3.mean(data2, function (d) { return +d[currentGroup] })
+                allMeans2.push(mean)
+            }
+
+            // Create a color scale using these means.
+            const myColor = d3.scaleSequential()
+                .domain([0, 100])
+                .interpolator(d3.interpolateViridis);
+
+            // Add X axis
+            const x = d3.scaleLinear()
+                .domain([-10, 120])
+                .range([0, width]);
+            svg.append("g")
+                .attr("class", "xAxis")
+                .attr("transform", "translate(0," + height + ")")
+                .call(d3.axisBottom(x).tickValues([0, 25, 50, 75, 100]).tickSize(-height))
+                .select(".domain").remove()
+
+            // Add X axis label:
+            svg.append("text")
+                .attr("text-anchor", "end")
+                .attr("x", width)
+                .attr("y", height + 40)
+                .text("Frequency");
+
+            // Create a Y scale for densities
+            const y = d3.scaleLinear()
+                .domain([0, .1])
+                .range([height, 0]);
+
+            // Create the Y axis for names
+            const yName = d3.scaleBand()
+                .domain(categories)
+                .range([0, height])
+                .paddingInner(1)
+            svg.append("g")
+                .call(d3.axisLeft(yName).tickSize(0))
+                .select(".domain").remove()
+
+            // Compute kernel density estimation for each column:
+            const kde = kernelDensityEstimator(kernelEpanechnikov(9), x.ticks(40)) // increase this 40 for more accurate density.
+            const allDensity = []
+            for (let i = 0; i < n; i++) {
+                let key = categories[i]
+                let density = kde(data.map(function (d) { return d[key]; }))
+                allDensity.push({ key: key, density: density })
+            }
+            const allDensity2 = []
+            for (let i = 0; i < n; i++) {
+                let key = categories[i]
+                let density = kde(data2.map(function (d) { return d[key]; }))
+                allDensity2.push({ key: key, density: density })
+            }
+
+            // Add areas
+            svg.selectAll("areas")
+                .data(allDensity)
+                .join("path")
+                .attr("transform", function (d) { return (`translate(0, ${(yName(d.key) - height)})`) })
+                .attr("fill", "rgba(0,100,255,0.5)")
+                .datum(function (d) { return (d.density) })
+                .attr("opacity", 0.7)
+                .attr("stroke", "rgba(0,100,255,1)")
+                .attr("stroke-width", 0.5)
+                .attr("d", d3.line()
+                    .curve(d3.curveBasis)
+                    .x(function (d) { return x(d[0]); })
+                    .y(function (d) { return y(d[1]); })
+                )
+            svg.selectAll("areas")
+                .data(allDensity2)
+                .join("path")
+                .attr("transform", function (d) { return (`translate(0, ${(yName(d.key) - height)})`) })
+                .attr("fill", "rgba(255,50,0,0.5)")
+                .datum(function (d) { return (d.density) })
+                .attr("opacity", 0.7)
+                .attr("stroke", "rgba(255,50,0,1)")
+                .attr("stroke-width", 0.5)
+                .attr("d", d3.line()
+                    .curve(d3.curveBasis)
+                    .x(function (d) { return x(d[0]); })
+                    .y(function (d) { return y(d[1]); })
+                )
+
+
+        };
         onMounted(() => {
             drawCharts();
         })
         const reloadChart = () => {
-            console.log("start")
             drawCharts();
 
         }
         return {
             reloadChart,
+            chartContainer,
             width,
             height,
             Years,
@@ -1484,6 +1653,20 @@ export default {
     overflow-x: hidden;
     overflow-y: auto;
 
+    &__Title {
+        font-size: 2rem;
+        color: white;
+        margin-top: 60px;
+        margin-bottom: 10px;
+    }
+
+    &__Detail {
+        width: 70%;
+        text-align: justify;
+        border-bottom: 2px solid black;
+        padding-bottom: 10px;
+        margin-bottom: 20px;
+    }
 
     &__header {
         width: 100%;
