@@ -73,11 +73,11 @@ export default {
       user-select: none;
       font-size: 20rem;
       z-index: 1;
-      color: rgb(28, 28, 28);
+      color: #5c73a2;
     }
 
     &__subtitle {
-      color: rgb(88, 88, 88);
+      color: #9caed4;
       position: absolute;
       bottom: 0px;
       display: flex;
@@ -102,7 +102,7 @@ export default {
         position: absolute;
         height: 25vmin;
         width: 40vmin;
-        background: #8d94b4;
+        background: #EEF5FF;
         transform: translate(-60vmin, -24.5vmin);
       }
       
@@ -111,7 +111,7 @@ export default {
         position: absolute;
         height: 25vmin;
         width: 40vmin;
-        background: #8d94b4;
+        background: #EEF5FF;
         transform: translate(-30vmin, 2.8vmin);
       }
     }

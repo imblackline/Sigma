@@ -48,6 +48,14 @@
             <h2>{{ selectedState.label }} - {{ selectedYears }}</h2>
             <svg ref="chart" :width="width" :height="height"></svg>
         </div>
+        <h2 class="assignment3__Title">-- Radar Chart --</h2>
+        <p class="assignment3__Detail">The Radar chart layout we've opted for is a tool to illustrate the monthly
+            temperature variations across several years for a chosen state. Each year is showcased as an individual group,
+            making trend identification straightforward. Through the year legend, users can selectively enable or disable
+            lines for specific years. The radial axis, spanning from 0 to 100, accentuates temperature values. Detailed
+            hover labels, tailored to display the month and temperature upon interaction, add precision. This design
+            guarantees a succinct and informative depiction of the annual temperature patterns.
+        </p>
         <div class="radarCharts">
             <div class="radarChart">
                 <h3>Min Temperature</h3>
@@ -62,6 +70,13 @@
                 <div ref="radarChart3"></div>
             </div>
         </div>
+        <h2 class="assignment3__Title">-- Ridgeline Chart --</h2>
+        <p class="assignment3__Detail">Ridgeline is most effective when depicting distributions. To employ this plot, we
+            needed to adjust the data. Initially, we computed the averages of minimum and maximum temperatures across all
+            months for each selected year and state. Subsequently, we determined the Kernel Density Estimation for both mean
+            minimum and maximum temperatures, plotting them on the x-axis. Meanwhile, the y-axis corresponds to the year or
+            years chosen by the user.
+        </p>
         <div ref="chartContainer"></div>
     </div>
 </template>
@@ -1344,7 +1359,7 @@ export default {
                 .data([maxProcessedDatas.value])
                 .attr('fill', 'none')
                 .attr('stroke', 'steelblue')
-                .attr('stroke', '#A0E9FF') // Set the line color to red
+                .attr('stroke', 'red') // Set the line color to red
                 .attr('stroke-width', 2)
                 .attr('d', line);
 
@@ -1373,7 +1388,7 @@ export default {
                 })
                 .attr('cy', (d) => yScale(d))
                 .attr('r', 4) // Set the radius of the dots
-                .attr('fill', '#FACBEA');
+                .attr('fill', '#87CBB9');
 
 
 
@@ -1655,7 +1670,7 @@ export default {
 
     &__Title {
         font-size: 2rem;
-        color: white;
+        color: #7C93C3;
         margin-top: 60px;
         margin-bottom: 10px;
     }
@@ -1774,8 +1789,8 @@ export default {
             .bottom {
                 clip-path: polygon(0% 60%, 100% 45%, 100% 100%, 0% 100%);
                 color: transparent;
-                background: -webkit-linear-gradient(179deg, #8d94b4 53%, hsl(0, 0%, 25%) 65%);
-                background: linear-gradient(179deg, #8d94b4 53%, hsl(0, 0%, 25%) 65%);
+                background: -webkit-linear-gradient(179deg, #EEF5FF 53%, hsl(0, 0%, 25%) 65%);
+                background: linear-gradient(179deg, #EEF5FF 53%, hsl(0, 0%, 25%) 65%);
                 background-clip: text;
                 -webkit-background-clip: text;
                 transform: translateX(-0.02em);
@@ -1848,6 +1863,5 @@ export default {
         flex-direction: column;
         align-items: center;
     }
-}
-</style>
+}</style>
   

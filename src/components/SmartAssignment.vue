@@ -4,8 +4,8 @@
             visibility_off
         </span>
         <img v-if="imgUrl" class="assginment__image" :src="`img/${imgUrl}`" alt="" @click="$router.push(`${redirectUrl}`)">
-        <SVGPolygon v-else class="assginment__polygon" :color="'#22232A'" @click="$router.push(`${redirectUrl}`)" />
-        <SVGPolygon class="assginment__polygon2" :color="'#51525e'" />
+        <SVGPolygon v-else class="assginment__polygon" :color="'#5c73a2'" @click="$router.push(`${redirectUrl}`)" />
+        <SVGPolygon class="assginment__polygon2" :color="'#a5b8e0'" />
         <p class="assginment__name">{{ assginmentName }}</p>
         <h2 class="assginment__number">{{ assginmentNumber }}</h2>
     </div>
@@ -27,7 +27,7 @@ const props = defineProps({
 
 <style lang="scss" scoped>
 .assginment {
-    color: #3f3f3f;
+    color: white;
     height: 200px;
     border-radius: 10px;
     width: 300px;
@@ -48,11 +48,11 @@ const props = defineProps({
         //    width: 100%;
         height: 100%;
         cursor: pointer;
-        filter: grayscale(.9);
+        filter: sepia(100%) hue-rotate(180deg) saturate(100%);
         transition: 0.3s;
 
         &:hover {
-            filter: grayscale(0.3);
+            filter: none;
         }
 
         &:hover+.assginment__polygon2 {
@@ -82,7 +82,8 @@ const props = defineProps({
     }
 
     &__name {
-        color: rgb(64, 64, 64);
+        color: #5c73a2;
+        font-weight: bold;
         margin-top: 25px;
     }
 
@@ -91,7 +92,7 @@ const props = defineProps({
         bottom: -3rem;
         left: -1rem;
         font-size: 17rem;
-        color: black;
+        color: #5c73a2;
         z-index: -1;
     }
 }

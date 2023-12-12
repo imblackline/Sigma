@@ -666,7 +666,7 @@ export default {
 
     &__stackchartTitle {
         font-size: 2rem;
-        color: white;
+        color: #7C93C3;
         margin-top: 80px;
         margin-bottom: 10px;
     }
@@ -820,8 +820,8 @@ export default {
             .bottom {
                 clip-path: polygon(0% 60%, 100% 45%, 100% 100%, 0% 100%);
                 color: transparent;
-                background: -webkit-linear-gradient(179deg, #8d94b4 53%, hsl(0, 0%, 25%) 65%);
-                background: linear-gradient(179deg, #8d94b4 53%, hsl(0, 0%, 25%) 65%);
+                background: -webkit-linear-gradient(179deg, #EEF5FF 53%, hsl(0, 0%, 25%) 65%);
+                background: linear-gradient(179deg, #EEF5FF 53%, hsl(0, 0%, 25%) 65%);
                 background-clip: text;
                 -webkit-background-clip: text;
                 transform: translateX(-0.02em);
