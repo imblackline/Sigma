@@ -3,6 +3,7 @@ import HomeView from '../views/HomeView.vue'
 import Assignment1 from '../views/Assignment1.view.vue'
 import Assignment2 from '../views/Assignment2.view.vue'
 import Assignment3 from '../views/Assignment3.view.vue'
+import Assignment4 from '../views/Assignment4.view.vue'
 const routes = [
   {
     path: '/',
@@ -23,6 +24,11 @@ const routes = [
     path: '/assignment3',
     name: 'assignment3',
     component: Assignment3
+  },
+  {
+    path: '/assignment4',
+    name: 'assignment4',
+    component: Assignment4
   },
 ]
 
