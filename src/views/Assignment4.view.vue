@@ -178,7 +178,7 @@ onMounted(async () => {
         };
     }
     let topoData = ref();
-    fetch("/data/choropleth.json")
+    fetch("data/choropleth.json")
         .then(response => response.json())
         .then(data => {
             topoData.value = data;
@@ -197,7 +197,7 @@ onMounted(async () => {
                 .on("mouseover", mouseOver_states)
                 .on("mouseleave", mouseLeave_states);
             // .on("click", zoomIn);
-            d3.csv("/data/dotmap_alternative.csv").then(async function (data) {
+            d3.csv("data/dotmap_alternative.csv").then(async function (data) {
                 loadchart.value = true;
                 const data2 = [
                     { state: "Alabama", count: 0 },
