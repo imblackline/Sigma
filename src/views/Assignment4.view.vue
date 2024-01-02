@@ -24,14 +24,16 @@
         <div class="container" ref="container">
             <div ref="mapContainer"></div>
         </div>
-        <!-- <h2 class="assignment4__Title">-- Radar Chart --</h2>
-        <p class="assignment4__Detail">The Radar chart layout we've opted for is a tool to illustrate the monthly
-            temperature variations across several years for a chosen state. Each year is showcased as an individual group,
-            making trend identification straightforward. Through the year legend, users can selectively enable or disable
-            lines for specific years. The radial axis, spanning from 0 to 100, accentuates temperature values. Detailed
-            hover labels, tailored to display the month and temperature upon interaction, add precision. This design
-            guarantees a succinct and informative depiction of the annual temperature patterns.
-        </p> -->
+        <h2 class="assignment4__Title">-- Choropleth Map --</h2>
+        <p class="assignment4__Detail">For the creation of our Choropleth map, we utilized GeoJson data detailing the
+            geographical layout of the states in the United States. This data was sourced from publicly accessible
+            databases. To represent tree abundance, we aggregated the total number of trees present in each state.
+            Additionally, we calculated the total land area occupied by these trees within each respective state. This
+            comprehensive data, encompassing both the count of trees and the area they cover, is conveniently displayed in a
+            tooltip. This tooltip activates and provides detailed information when a user hovers over any state on the map,
+            offering an interactive and informative experience.
+        </p>
+        <div id="choropleth"></div>
     </div>
 </template>
 <script setup>
@@ -44,7 +46,172 @@ const mapContainer = ref(null);
 const container = ref(null);
 const loadchart = ref(true);
 
+const initializeChoropleth = () => {
+    var margin = { top: 60, right: 70, bottom: 70, left: 100 },
+        width = 1435 - margin.left - margin.right,
+        height = 700 - margin.top - margin.bottom;
+
+    const legendWidth = 110;
+    const legendHeight = 300;
+
+    const legendX = width - legendWidth - 80;
+    const legendY = height / 2 - legendHeight / 2 - 220;
+
+    let projection = d3.geoAlbersUsa()
+        .scale(width - 20)
+        .translate([width / 2, height / 2]);
+
+    let tooltip = null;
+
+    let mouseOver = function (event, d) {
+        d3.selectAll(".Country")
+            .transition()
+            .duration(200)
+            .style("opacity", .3)
+            .style("stroke", "black")
+            .style("stroke-width", "0.75px");
+        d3.select(this)
+            .transition()
+            .duration(200)
+            .style("opacity", 1)
+            .style("stroke", d.properties.abundance != 0 ? "#5c73a2" : "black")
+            .style("stroke-width", "2px");
+
+        if (!tooltip) {
+            tooltip = d3.select("body").append("div")
+                .attr("class", "tooltip")
+                .style("opacity", 0);
+        }
+
+        tooltip.html(d.properties.name + ' &#40;' + d.properties.postal + '&#41;: ' + d.properties.abundance + ' trees in '
+            + d.properties.area + ' km<sup>2</sup>')
+            .style("left", (event.pageX + 15) + "px")
+            .style("top", (event.pageY - 28) + "px")
+            .transition().duration(400)
+            .style("opacity", 1);
+    };
+
+    let mouseLeave = function () {
+        d3.selectAll(".Country")
+            .transition()
+            .duration(200)
+            .style("opacity", 1)
+            .style("stroke", "black")
+            .style("stroke-width", "0.75px");
+        if (tooltip) {
+            tooltip.transition().duration(300)
+                .style("opacity", 0)
+                .remove();
+            tooltip = null;
+        }
+    };
+
+    let path = d3.geoPath().projection(projection);
+
+    const colorScale = d3.scaleThreshold()
+        .domain([50000, 100000, 200000, 300000, 500000])
+        .range(d3.schemeBlues[6]);
+
+    let svg = d3.select("#choropleth")
+        .append("svg")
+        .attr("width", width)
+        .attr("height", height)
+        .attr("preserveAspectRatio", "xMinYMin meet")
+        .attr("viewBox", `0 0 ${width} ${height}`);
+
+    let world = svg.append("g");
+
+    const defs = svg.append("defs");
+
+    defs.append("pattern")
+        .attr("id", "stripe")
+        .attr("patternUnits", "userSpaceOnUse")
+        .attr("width", 8)
+        .attr("height", 8)
+        .attr("patternTransform", "rotate(45)")
+        .append("rect")
+        .attr("width", 4)
+        .attr("height", 8)
+        .attr("transform", "translate(0,0)")
+        .attr("opacity", 0.5)
+        .attr("fill", "grey");
+
+    fetch("data/choropleth.json")
+        .then(response => response.json())
+        .then(data => {
+            const data_features = topojson.feature(data, data.objects.states).features;
+
+            world.selectAll(".states")
+                .data(data_features)
+                .enter().append("path")
+                .attr("data-name", function (d) { return d.properties.name })
+
+                .attr("d", path)
+                .style("stroke", "black")
+                .attr("class", "Country")
+                .attr("id", function (d) { return d.id })
+                .style("opacity", 1)
+                .style("stroke-width", "0.75px")
+                .style("fill", function (d) {
+                    var value = d.properties.abundance;
+                    return value != 0 ? colorScale(value) : "url(#stripe)";
+                })
+                .on("mouseover", mouseOver)
+                .on("mouseleave", mouseLeave);
+        })
+        .catch(error => {
+            console.error("Error fetching the data:", error);
+        });
+
+    const x = d3.scaleLinear()
+        .domain([2.6, 75.1])
+        .rangeRound([600, 860]);
+
+    const legend = svg.append("g")
+        .attr("id", "choropleth_legend")
+        .attr("transform", `translate(${legendX}, ${legendY})`);
+
+    const legend_entry = legend.selectAll("g.legend")
+        .data(colorScale.range().map(function (d) {
+            d = colorScale.invertExtent(d);
+            if (d[0] == null) d[0] = x.domain()[0];
+            if (d[1] == null) d[1] = x.domain()[1];
+            return d;
+        }))
+        .enter().append("g")
+        .attr("class", "legend_entry");
+
+    const ls_w = 20,
+        ls_h = 20;
+
+    legend_entry.append("rect")
+        .attr("x", 20)
+        .attr("y", function (d, i) {
+            return height - (i * ls_h) - 2 * ls_h;
+        })
+        .attr("width", ls_w)
+        .attr("height", ls_h)
+        .style("fill", function (d) {
+            return colorScale(d[0]);
+        });
+
+    legend_entry.append("text")
+        .attr("x", 50)
+        .attr("y", function (d, i) {
+            return height - (i * ls_h) - ls_h - 6;
+        })
+        .text(function (d, i) {
+            if (i === 0) return "< " + d[1] / 1000 + " k";
+            if (d[1] < d[0]) return d[0] / 1000 + " k +";
+            return d[0] / 1000 + " k - " + d[1] / 1000 + " k";
+        });
+
+    legend.append("text").attr("x", 15).attr("y", 420).text("Tree abundance");
+};
+
 onMounted(async () => {
+    initializeChoropleth();
+
     var margin = { top: 60, right: 70, bottom: 70, left: 100 },
         width = 1435 - margin.left - margin.right,
         height = 700 - margin.top - margin.bottom;
@@ -447,5 +614,4 @@ onMounted(async () => {
             }
         }
     }
-}
-</style>
+}</style>
