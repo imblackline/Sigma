@@ -910,7 +910,7 @@ export default {
                     .selectAll("rect")
                     .data(function (d) {
                         return subgroups.map(function (key) {
-                            console.log({ key: d.Country, value: d[key], type: `${key}` })
+                            // console.log({ key: d.Country, value: d[key], type: `${key}` })
                             return { key: d.Country, value: d[key], type: `${key}` };
                         });
                     })
@@ -1158,7 +1158,7 @@ export default {
                     Min: groupedData[country].min,
                     Max: groupedData[country].max
                 }));
-                console.log(result)
+                // console.log(result)
 
                 let maxValues = result.map(item => item.Max);
                 let highestMax = Math.max(...maxValues);
@@ -1265,7 +1265,7 @@ export default {
                     .style("font-size", 10)
                     .text("Adult Mortality");
                 // Add dots
-                console.log(data)
+                // console.log(data)
                 svg.append('g')
                     .selectAll("dot")
                     .data(data)
