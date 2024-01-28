@@ -258,7 +258,7 @@ export default {
 
             //Read the data
             // d3.csv("https://raw.githubusercontent.com/holtzy/data_to_viz/master/Example_dataset/4_ThreeNum.csv").then(function (data) {
-            d3.csv("/data/Life Expectancy Data.csv").then(function (data) {
+            d3.csv("data/Life Expectancy Data.csv").then(function (data) {
 
                 // ---------------------------//
                 //       AXIS  AND SCALE      //
@@ -475,7 +475,7 @@ export default {
                 .attr("transform", `translate(${margin.left},${margin.top})`);
 
             // Parse the Data
-            d3.csv("/data/Life Expectancy Data.csv").then(function (data) {
+            d3.csv("data/Life Expectancy Data.csv").then(function (data) {
                 const selectedCountry = ref(['Italy', 'Ireland', 'Japan', 'Libya', 'Netherlands', 'Russian Federation', 'Senegal', 'France', 'Spain', 'China'])
                 data = data.filter(item => selectedCountry.value.includes(item.Country) && (item.Year === "2000" || item.Year === "2005" || item.Year === "2010" || item.Year === "2015"));
                 let stackData = ref([]);
@@ -567,7 +567,7 @@ export default {
 
             // Create dummy data
             // const data = { a: 9, b: 20, c: 30, d: 8, e: 12, f: 3, g: 7, h: 14 }
-            d3.csv("/data/Life Expectancy Data.csv").then(function (data) {
+            d3.csv("data/Life Expectancy Data.csv").then(function (data) {
                 // console.log(data)
                 const selectedCountry = ref(['Italy', 'Ireland', 'Japan', 'Libya', 'Netherlands', 'Russian Federation', 'Cuba', 'France', 'Spain', 'China'])
 
@@ -686,7 +686,7 @@ export default {
 
             // Create dummy data
             // const data = { a: 9, b: 20, c: 30, d: 8, e: 12 }
-            d3.csv("/data/Life Expectancy Data.csv").then(function (data) {
+            d3.csv("data/Life Expectancy Data.csv").then(function (data) {
                 // console.log(data)
                 const selectedCountry = ref(['Italy', 'Ireland', 'Japan', 'Libya', 'Netherlands', 'Russian Federation', 'Cuba', 'France', 'Spain', 'China'])
 
@@ -765,7 +765,7 @@ export default {
 
             //Read the data
             // d3.csv("https://raw.githubusercontent.com/holtzy/data_to_viz/master/Example_dataset/5_OneCatSevNumOrdered.csv").then(function (data) {
-            d3.csv("/data/Life Expectancy Data.csv").then(function (data) {
+            d3.csv("data/Life Expectancy Data.csv").then(function (data) {
                 let DevelopedCountry = data.filter(item => item.Status === 'Developed');
                 let DevelopingCountry = data.filter(item => item.Status === 'Developing');
                 let developing = {};
@@ -864,7 +864,7 @@ export default {
                 .attr("transform", `translate(${margin.left},${margin.top})`);
 
             // Parse the Data
-            d3.csv("/data/Life Expectancy Data.csv").then(function (data) {
+            d3.csv("data/Life Expectancy Data.csv").then(function (data) {
                 const selectedCountry = ref(['Italy', 'Ireland', 'Australia', 'Bangladesh', 'Netherlands', 'Spain'])
                 data = data.filter(item => selectedCountry.value.includes(item.Country) && item.Year === '2015');
 
@@ -1131,7 +1131,7 @@ export default {
 
             // Parse the Data
             // d3.csv("https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/data_cleveland.csv").then(function (data) {
-            d3.csv("/data/Life Expectancy Data.csv").then(function (data) {
+            d3.csv("data/Life Expectancy Data.csv").then(function (data) {
                 // console.log(data)
                 const selectedCountry = ref(['Italy', 'Ireland', 'Japan', 'Austria', 'Netherlands', 'Belgium', 'Cuba', 'France', 'Spain', 'China'])
 
@@ -1225,7 +1225,7 @@ export default {
 
             //Read the data
             // d3.csv("https://raw.githubusercontent.com/holtzy/data_to_viz/master/Example_dataset/2_TwoNum.csv").then(function (data) {
-            d3.csv("/data/Life Expectancy Data.csv").then(function (data) {
+            d3.csv("data/Life Expectancy Data.csv").then(function (data) {
                 data = data.filter(item => item.Year === "2015");
 
                 // Add X axis
@@ -1318,7 +1318,7 @@ export default {
 
 
             //Read the data
-            d3.csv("/data/Life Expectancy Data.csv").then(function (data) {
+            d3.csv("data/Life Expectancy Data.csv").then(function (data) {
                 // console.log(data)
                 const selectedCountry = ref(['Italy', 'Ireland', 'Japan', 'Austria', 'Netherlands', 'Belgium', 'Cuba', 'France', 'Spain', 'China'])
                 const myVars = data.filter(item => item.Country === "Italy").map(x => x.Year).reverse();
@@ -1391,7 +1391,7 @@ export default {
                         "translate(" + margin.left + "," + margin.top + ")");
 
                 // Read the data and compute summary statistics for each country
-                d3.csv("/data/Life Expectancy Data.csv").then(function (data) {
+                d3.csv("data/Life Expectancy Data.csv").then(function (data) {
                     const selectedCountry = ref(['Italy', 'Ireland', 'Japan', 'Austria', 'Netherlands', 'Belgium', 'Cuba', 'France', 'Spain', 'China'])
                     data = data.filter(item => selectedCountry.value.includes(item.Country));
 
@@ -1614,7 +1614,7 @@ export default {
         }
         const AllData = ref();
         onMounted(async () => {
-            d3.csv("/data/Life Expectancy Data.csv").then(function (data) {
+            d3.csv("data/Life Expectancy Data.csv").then(function (data) {
                 AllData.value = data;
                 Choropleth.initialize();
             });
@@ -1624,7 +1624,7 @@ export default {
             pieChart();
             lineChart()
             barChart()
-            Butterfly.initialize("/data/Life Expectancy Data.csv");
+            Butterfly.initialize("data/Life Expectancy Data.csv");
             lollipopChart()
             scatterPlot()
             heatmap();
