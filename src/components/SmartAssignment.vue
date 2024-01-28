@@ -5,9 +5,9 @@
         </span>
         <img v-if="imgUrl" class="assginment__image" :src="`img/${imgUrl}`" alt="" @click="$router.push(`${redirectUrl}`)">
         <SVGPolygon v-else class="assginment__polygon" :color="'#5c73a2'" @click="$router.push(`${redirectUrl}`)" />
-        <SVGPolygon class="assginment__polygon2" :color="'#a5b8e0'" />
-        <p class="assginment__name">{{ assginmentName }}</p>
-        <h2 class="assginment__number">{{ assginmentNumber }}</h2>
+        <SVGPolygon class="assginment__polygon2" :color="isFinal? '#e6b3254e':'#a5b8e0'" />
+        <p class="assginment__name" :class="{'assginment__name--gold':isFinal}">{{ assginmentName }}</p>
+        <h2 class="assginment__number" :class="{'assginment__number--gold':isFinal}">{{ assginmentNumber }}</h2>
     </div>
 </template>
 
@@ -18,6 +18,10 @@ const props = defineProps({
     assginmentName: String,
     redirectUrl: String,
     imgUrl: String,
+    isFinal:{
+        type: Boolean,
+        default: false
+    },
     isActive: {
         type: Boolean,
         default: false
@@ -52,7 +56,7 @@ const props = defineProps({
         transition: 0.3s;
 
         &:hover {
-            filter: none;
+            filter:none;
         }
 
         &:hover+.assginment__polygon2 {
@@ -85,6 +89,9 @@ const props = defineProps({
         color: #5c73a2;
         font-weight: bold;
         margin-top: 25px;
+        &--gold{
+            color: #C58940;
+        }
     }
 
     &__number {
@@ -94,6 +101,9 @@ const props = defineProps({
         font-size: 17rem;
         color: #5c73a2;
         z-index: -1;
+        &--gold{
+            color: #E6B325;
+        }
     }
 }
 

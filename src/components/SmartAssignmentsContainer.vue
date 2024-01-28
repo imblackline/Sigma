@@ -4,8 +4,8 @@
     <SmartAssignment :assginmentName="'Distributions'" :isActive="true" :assginmentNumber="'2'" :imgUrl="'Distrbution image.png'" :redirectUrl="'assignment2'"/>
     <SmartAssignment :assginmentName="'Timelines and distributions'" :isActive="true" :assginmentNumber="'3'" :imgUrl="'timeline.png'" :redirectUrl="'assignment3'"/>
     <SmartAssignment :assginmentName="'Maps'" :assginmentNumber="'4'" :isActive="true" :redirectUrl="'assignment4'" :imgUrl="'density.png'"/>
-    <SmartAssignment :assginmentName="'Timelines'" :assginmentNumber="'5'"/>
-    <SmartAssignment :assginmentName="'Flux'" :assginmentNumber="'6'"/>
+    <SmartAssignment :assginmentName="'Final Project'" :assginmentNumber="'5'" :isActive="true" :redirectUrl="'final'" :imgUrl="'final.png'" :isFinal="true"/>
+    <!-- <SmartAssignment :assginmentName="'Flux'" :assginmentNumber="'6'"/> -->
   </div>
 </template>
 
