@@ -1,53 +1,210 @@
 <template>
     <div class="final">
-        <h2>Overview</h2>
-        <div>
-            <h5>Choropleth map</h5>
-            <div id="choropleth"></div>
+        <div class="final__header">
+            <div class="final__header__btn">
+                <button class="final__header__btn__homebtn" @click="$router.back()">
+                    <span>Back home</span>
+                    <svg viewBox="-5 -5 110 110" preserveAspectRatio="none" aria-hidden="true">
+                        <path d="M0,0 C0,0 100,0 100,0 C100,0 100,100 100,100 C100,100 0,100 0,100 C0,100 0,0 0,0" />
+                    </svg>
+                </button>
+            </div>
+            <section class="wrapper">
+                <div class="top">Life Expectency</div>
+                <div class="bottom" aria-hidden="true">Life Expectency</div>
+            </section>
         </div>
-        <div>
-            <h5>Bubble chart</h5>
-            <div id="my_dataviz"></div>
+        <div class="final__section">
+            <div class="final__section__title">
+                Overview
+            </div>
+            <div class="final__section__desc">
+                This section provides a compelling and informative overview of the data, utilizing the synergistic strengths
+                of two complementary visualization techniques: choropleth maps and bubble charts. These charts seamlessly
+                blend geographical representation with data intensity, enabling a comprehensive understanding of spatial
+                patterns and relationships
+            </div>
+            <div class="final__section__chart">
+                <h5 class="final__section__chart__title">Choropleth map</h5>
+                <p class="final__section__chart__detail">Lorem Ipsum is simply dummy text of the printing and typesetting
+                    industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown
+                    printer took a galley of type and scrambled it to make a type specimen book. It has survived not only
+                    five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was
+                    popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more
+                    recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+                <div id="choropleth"></div>
+            </div>
+            <div class="final__section__chart">
+                <h5 class="final__section__chart__title">Bubble chart</h5>
+                <p class="final__section__chart__detail">Lorem Ipsum is simply dummy text of the printing and typesetting
+                    industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown
+                    printer took a galley of type and scrambled it to make a type specimen book. It has survived not only
+                    five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was
+                    popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more
+                    recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+                <div id="my_dataviz"></div>
+            </div>
         </div>
-        <div>
-            <h5>100% stacked bar chart</h5>
-            <div id="stacked"></div>
+        <div class="final__section">
+            <div class="final__section__title">
+                Part of a whole
+            </div>
+            <div class="final__section__desc">
+                This section provides a compelling and informative overview of the data, utilizing the synergistic strengths
+                of two complementary visualization techniques: choropleth maps and bubble charts. These charts seamlessly
+                blend geographical representation with data intensity, enabling a comprehensive understanding of spatial
+                patterns and relationships
+            </div>
+            <div class="final__section__chart">
+                <h5 class="final__section__chart__title">100% Stacked Bar Chart</h5>
+                <p class="final__section__chart__detail">Lorem Ipsum is simply dummy text of the printing and typesetting
+                    industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown
+                    printer took a galley of type and scrambled it to make a type specimen book. It has survived not only
+                    five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was
+                    popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more
+                    recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+                <div id="stack_legend"></div>
+                <div id="stacked"></div>
+            </div>
+            <div class="final__section__chart">
+                <h5 class="final__section__chart__title">Doughnut Chart</h5>
+                <p class="final__section__chart__detail">Lorem Ipsum is simply dummy text of the printing and typesetting
+                    industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown
+                    printer took a galley of type and scrambled it to make a type specimen book. It has survived not only
+                    five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was
+                    popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more
+                    recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+                <div id="doughnut"></div>
+            </div>
+            <div class="final__section__chart">
+                <h5 class="final__section__chart__title">Pie Chart</h5>
+                <p class="final__section__chart__detail">Lorem Ipsum is simply dummy text of the printing and typesetting
+                    industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown
+                    printer took a galley of type and scrambled it to make a type specimen book. It has survived not only
+                    five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was
+                    popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more
+                    recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+                <div id="pie_legend"></div>
+                <div id="pie"></div>
+            </div>
         </div>
-        <div>
-            <h5>Doughnut chart</h5>
-            <div id="doughnut"></div>
+        <div class="final__section">
+            <div class="final__section__title">
+                Time Series
+            </div>
+            <div class="final__section__desc">
+                This section provides a compelling and informative overview of the data, utilizing the synergistic strengths
+                of two complementary visualization techniques: choropleth maps and bubble charts. These charts seamlessly
+                blend geographical representation with data intensity, enabling a comprehensive understanding of spatial
+                patterns and relationships
+            </div>
+            <div class="final__section__chart">
+                <h5 class="final__section__chart__title">Line chart</h5>
+                <p class="final__section__chart__detail">Lorem Ipsum is simply dummy text of the printing and typesetting
+                    industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown
+                    printer took a galley of type and scrambled it to make a type specimen book. It has survived not only
+                    five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was
+                    popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more
+                    recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+                <div id="line_legend"></div>
+                <div id="line"></div>
+            </div>
         </div>
-        <div>
-            <h5>Pie chart</h5>
-            <div id="pie"></div>
+        <div class="final__section">
+            <div class="final__section__title">
+                Comparison
+            </div>
+            <div class="final__section__desc">
+                This section provides a compelling and informative overview of the data, utilizing the synergistic strengths
+                of two complementary visualization techniques: choropleth maps and bubble charts. These charts seamlessly
+                blend geographical representation with data intensity, enabling a comprehensive understanding of spatial
+                patterns and relationships
+            </div>
+            <div class="final__section__chart">
+                <h5 class="final__section__chart__title">Grouped Bar Chart</h5>
+                <p class="final__section__chart__detail">Lorem Ipsum is simply dummy text of the printing and typesetting
+                    industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown
+                    printer took a galley of type and scrambled it to make a type specimen book. It has survived not only
+                    five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was
+                    popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more
+                    recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+                <div id="bar_legend"></div>
+                <div id="bar"></div>
+            </div>
+            <div class="final__section__chart">
+                <h5 class="final__section__chart__title">Butterfly chart</h5>
+                <p class="final__section__chart__detail">Lorem Ipsum is simply dummy text of the printing and typesetting
+                    industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown
+                    printer took a galley of type and scrambled it to make a type specimen book. It has survived not only
+                    five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was
+                    popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more
+                    recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+                <div id="pyramid"></div>
+            </div>
+            <div class="final__section__chart">
+                <h5 class="final__section__chart__title">Lollipop Chart</h5>
+                <p class="final__section__chart__detail">Lorem Ipsum is simply dummy text of the printing and typesetting
+                    industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown
+                    printer took a galley of type and scrambled it to make a type specimen book. It has survived not only
+                    five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was
+                    popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more
+                    recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+                <div id="lollipop_legend"></div>
+                <div id="lollipop"></div>
+            </div>
         </div>
-        <div>
-            <h5>Line chart</h5>
-            <div id="line"></div>
+        <div class="final__section">
+            <div class="final__section__title">
+                Correlation
+            </div>
+            <div class="final__section__desc">
+                This section provides a compelling and informative overview of the data, utilizing the synergistic strengths
+                of two complementary visualization techniques: choropleth maps and bubble charts. These charts seamlessly
+                blend geographical representation with data intensity, enabling a comprehensive understanding of spatial
+                patterns and relationships
+            </div>
+            <div class="final__section__chart">
+                <h5 class="final__section__chart__title">Scatter Plot</h5>
+                <p class="final__section__chart__detail">Lorem Ipsum is simply dummy text of the printing and typesetting
+                    industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown
+                    printer took a galley of type and scrambled it to make a type specimen book. It has survived not only
+                    five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was
+                    popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more
+                    recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+                <div id="scatter"></div>
+            </div>
+            <div class="final__section__chart">
+                <h5 class="final__section__chart__title">Heatmap</h5>
+                <p class="final__section__chart__detail">Lorem Ipsum is simply dummy text of the printing and typesetting
+                    industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown
+                    printer took a galley of type and scrambled it to make a type specimen book. It has survived not only
+                    five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was
+                    popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more
+                    recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+                <div id="heatmap_legend"></div>
+                <div id="heatmap"></div>
+            </div>
         </div>
-        <div>
-            <h5>Grouped Bar chart</h5>
-            <div id="bar"></div>
-        </div>
-        <div>
-            <h5>Butterfly chart</h5>
-            <div id="pyramid"></div>
-        </div>
-        <div>
-            <h5>Lollipop chart</h5>
-            <div id="lollipop"></div>
-        </div>
-        <div>
-            <h5>Scatter plot</h5>
-            <div id="scatter"></div>
-        </div>
-        <div>
-            <h5>Heatmap</h5>
-            <div id="heatmap"></div>
-        </div>
-        <div>
-            <h5>Box plot</h5>
-            <div id="boxplot"></div>
+        <div class="final__section">
+            <div class="final__section__title">
+                Distribution
+            </div>
+            <div class="final__section__desc">
+                This section provides a compelling and informative overview of the data, utilizing the synergistic strengths
+                of two complementary visualization techniques: choropleth maps and bubble charts. These charts seamlessly
+                blend geographical representation with data intensity, enabling a comprehensive understanding of spatial
+                patterns and relationships
+            </div>
+            <div class="final__section__chart">
+                <h5 class="final__section__chart__title">Box Plot</h5>
+                <p class="final__section__chart__detail">Lorem Ipsum is simply dummy text of the printing and typesetting
+                    industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown
+                    printer took a galley of type and scrambled it to make a type specimen book. It has survived not only
+                    five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was
+                    popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more
+                    recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+                <div id="boxplot"></div>
+            </div>
         </div>
     </div>
 </template>
@@ -277,7 +434,7 @@ export default {
                     .attr("text-anchor", "end")
                     .attr("x", width)
                     .attr("y", height + 50)
-                    .text("Gdp");
+                    .text("GDP");
 
                 // Add Y axis
                 const y = d3.scaleLinear()
@@ -375,8 +532,8 @@ export default {
                     .attr("cx", d => x(d.GDP) + 30)
                     .attr("cy", d => y(d["Life expectancy "]))
                     .attr("r", d => z(d.Population))
-                    .style("fill", d => myColor(d.Status))
-                    .style("stroke", d => d3.color(myColor(d.Status)).darker(0.5))
+                    .style("fill", d => d.Status === "Developed" ? '#ef7f23' : '#31a354')
+                    .style("stroke", d => d.Status === "Developed" ? '#be4803' : '#23763d')
                     // -3- Trigger the functions for hover
                     .on("mouseover", showTooltip)
                     .on("mousemove", moveTooltip)
@@ -441,7 +598,7 @@ export default {
                     .attr("cx", 590)
                     .attr("cy", (d, i) => 10 + i * (size + 5) + 170) // 100 is where the first dot appears. 25 is the distance between dots
                     .attr("r", 7)
-                    .style("fill", d => myColor(d))
+                    .style("fill", d => d === "Developed" ? '#ef7f23' : '#31a354')
                     .on("mouseover", highlight)
                     .on("mouseleave", noHighlight)
 
@@ -452,7 +609,7 @@ export default {
                     .append("text")
                     .attr("x", 590 + size * .8)
                     .attr("y", (d, i) => i * (size + 5) + (size / 2) + 170) // 100 is where the first dot appears. 25 is the distance between dots
-                    .style("fill", d => myColor(d))
+                    .style("fill", d => d === "Developed" ? '#ef7f23' : '#31a354')
                     .text(d => d)
                     .attr("text-anchor", "left")
                     .style("alignment-baseline", "middle")
@@ -478,6 +635,49 @@ export default {
             d3.csv("data/Life Expectancy Data.csv").then(function (data) {
                 const selectedCountry = ref(['Italy', 'Ireland', 'Japan', 'Libya', 'Netherlands', 'Russian Federation', 'Senegal', 'France', 'Spain', 'China'])
                 data = data.filter(item => selectedCountry.value.includes(item.Country) && (item.Year === "2000" || item.Year === "2005" || item.Year === "2010" || item.Year === "2015"));
+
+                var legendContainer = d3.select("#stack_legend");
+
+                // Data for legend items
+                var legendData = [{
+                    level: '2000',
+                    color: '#ef7f23'
+                },
+                {
+                    level: '2005',
+                    color: '#f39f5a'
+                },
+                {
+                    level: '2010',
+                    color: '#f7bf91'
+                },
+                {
+                    level: '2015',
+                    color: '#fbdfc8'
+                }
+                ];
+
+                // Create legend items
+                var legendItems = legendContainer.selectAll(".legend-item")
+                    .data(legendData)
+                    .enter()
+                    .append("div")
+                    .attr("class", "legend-item");
+
+                // Add color boxes to legend
+                legendItems.append("div")
+                    .attr("class", "legend-color-box")
+                    .style("background-color", function (d) {
+                        return d.color;
+                    });
+
+                // Add level names to legend
+                legendItems.append("div")
+                    .attr("class", "legend-text")
+                    .text(function (d) {
+                        return d.level;
+                    });
+
                 let stackData = ref([]);
                 selectedCountry.value.forEach((c) => {
                     stackData.value.push({
@@ -511,7 +711,7 @@ export default {
                 // color palette = one color per subgroup
                 const color = d3.scaleOrdinal()
                     .domain(subgroups)
-                    .range(['#e41a1c', '#377eb8', '#4daf4a', '#330002'])
+                    .range(['#ef7f23', '#f39f5a', '#f7bf91', '#fbdfc8'])
 
                 // Normalize the data -> sum of each group must be 100!
                 let dataNormalized = []
@@ -689,7 +889,74 @@ export default {
             d3.csv("data/Life Expectancy Data.csv").then(function (data) {
                 // console.log(data)
                 const selectedCountry = ref(['Italy', 'Ireland', 'Japan', 'Libya', 'Netherlands', 'Russian Federation', 'Cuba', 'France', 'Spain', 'China'])
+                var legendContainer = d3.select("#pie_legend");
+                // set the color scale
+                const color = d3.scaleOrdinal()
+                    .domain(selectedCountry.value)
+                    .range(d3.schemeSet3);
+                // Data for legend items
+                var legendData = [{
+                    level: 'Italy',
+                    color: color('Italy')
+                },
+                {
+                    level: 'Ireland',
+                    color: color('Ireland')
+                },
+                {
+                    level: 'Japan',
+                    color: color('Japan')
+                },
+                {
+                    level: 'Libya',
+                    color: color('Libya')
+                },
+                {
+                    level: 'Netherlands',
+                    color: color('Netherlands')
+                },
+                {
+                    level: 'Russian Federation',
+                    color: color('Russian Federation')
+                },
+                {
+                    level: 'Cuba',
+                    color: color('Cuba')
+                },
+                {
+                    level: 'France',
+                    color: color('France')
+                },
+                {
+                    level: 'Spain',
+                    color: color('Spain')
+                },
+                {
+                    level: 'China',
+                    color: color('China')
+                }
+                ];
 
+                // Create legend items
+                var legendItems = legendContainer.selectAll(".legend-item")
+                    .data(legendData)
+                    .enter()
+                    .append("div")
+                    .attr("class", "legend-item");
+
+                // Add color boxes to legend
+                legendItems.append("div")
+                    .attr("class", "legend-color-box")
+                    .style("background-color", function (d) {
+                        return d.color;
+                    });
+
+                // Add level names to legend
+                legendItems.append("div")
+                    .attr("class", "legend-text")
+                    .text(function (d) {
+                        return d.level;
+                    });
                 let filteredData = data.filter(item => selectedCountry.value.includes(item.Country) && item.Year === "2010");
                 // let countryNames = data.map(item => item.Country);
                 // Transform the filtered data into the desired object format
@@ -710,10 +977,7 @@ export default {
                     return sortedObj;
                 }
                 alcoholByCountry = sortObjectByValues(alcoholByCountry)
-                // set the color scale
-                const color = d3.scaleOrdinal()
-                    .domain(selectedCountry.value)
-                    .range(d3.schemeSet3);
+
 
                 // Compute the position of each group on the pie:
                 const pie = d3.pie()
@@ -742,7 +1006,7 @@ export default {
                     .selectAll('mySlices')
                     .data(data_ready)
                     .join('text')
-                    .text(function (d) { return d.data[0] + " (" + d.data[1] + "%)" })
+                    .text(function (d) { return d.data[1] + "%" })
                     .attr("transform", function (d) { return `translate(${arcGenerator.centroid(d)})` })
                     .style("text-anchor", "middle")
                     .style("font-size", 13)
@@ -751,7 +1015,7 @@ export default {
 
         const lineChart = () => {
             // set the dimensions and margins of the graph
-            const margin = { top: 10, right: 30, bottom: 30, left: 60 },
+            const margin = { top: 20, right: 30, bottom: 40, left: 70 },
                 width = 860 - margin.left - margin.right,
                 height = 400 - margin.top - margin.bottom;
 
@@ -784,6 +1048,41 @@ export default {
                     developing[year] = value / DevelopingCountry.length
                 })
 
+                var legendContainer = d3.select("#line_legend");
+
+                // Data for legend items
+                var legendData = [{
+                    level: 'Developed',
+                    color: '#ef7f23'
+                },
+                {
+                    level: 'Developing',
+                    color: '#31a354'
+                }
+                ];
+
+                // Create legend items
+                var legendItems = legendContainer.selectAll(".legend-item")
+                    .data(legendData)
+                    .enter()
+                    .append("div")
+                    .attr("class", "legend-item");
+
+                // Add color boxes to legend
+                legendItems.append("div")
+                    .attr("class", "legend-color-box")
+                    .style("background-color", function (d) {
+                        return d.color;
+                    });
+
+                // Add level names to legend
+                legendItems.append("div")
+                    .attr("class", "legend-text")
+                    .text(function (d) {
+                        return d.level;
+                    });
+
+
                 const years = Object.keys(developed)
                 let readyData = { developed, developing }
 
@@ -795,7 +1094,22 @@ export default {
                     .range([height, 0]);
                 svg.append("g")
                     .call(d3.axisLeft(y));
-
+                svg.append("text")
+                    .attr("class", "axis-label")
+                    .attr("x", width - 20)
+                    .attr("y", height + margin.bottom - 5) // Adjusted the y-coordinate
+                    .style("text-anchor", "middle")
+                    .style("fill", "black")
+                    .style("font-size", 10)
+                    .text("Year");
+                svg.append("text")
+                    .attr("class", "axis-label")
+                    .attr("x", -10)
+                    .attr("y", -5)
+                    .style("text-anchor", "middle")
+                    .style("fill", "black")
+                    .style("font-size", 10)
+                    .text("Adult Mortality Avarage");
                 // color palette
                 const color = d3.scaleOrdinal()
                     .range(Object.entries(readyData.developing))
@@ -834,14 +1148,14 @@ export default {
                 svg.append("path")
                     .datum(transformedData) // Use datum for a single line (whole dataset)
                     .attr("fill", "none")
-                    .attr("stroke", "steelblue") // Example: set a fixed color or use your color scale
+                    .attr("stroke", '#ef7f23') // Example: set a fixed color or use your color scale
                     .attr("stroke-width", 1.5)
                     .attr("d", lineGenerator);
 
                 svg.append("path")
                     .datum(transformedData) // Use datum for a single line (whole dataset)
                     .attr("fill", "none")
-                    .attr("stroke", "red") // Example: set a fixed color or use your color scale
+                    .attr("stroke", '#31a354') // Example: set a fixed color or use your color scale
                     .attr("stroke-width", 1.5)
                     .attr("d", lineGenerator1);
 
@@ -896,7 +1210,49 @@ export default {
                 // color palette = one color per subgroup
                 const color = d3.scaleOrdinal()
                     .domain(subgroups)
-                    .range(['#e41a1c', '#377eb8', '#4daf4a', "orange"])
+                    .range([ '#ef7f23' , '#31a354' ,'#4F709C','#C63D2F'])
+
+                var legendContainer = d3.select("#bar_legend");
+
+                // Data for legend items
+                var legendData = [{
+                    level: "Measles ", 
+                    color: color("Measles ")
+                },
+                {
+                    level: "Hepatitis B",
+                    color: color("Hepatitis B")
+                },
+                {
+                    level: "Diphtheria ",
+                    color: color("Diphtheria ")
+                },
+                {
+                    level: "Polio",
+                    color: color("Polio")
+                }
+                ];
+
+                // Create legend items
+                var legendItems = legendContainer.selectAll(".legend-item")
+                    .data(legendData)
+                    .enter()
+                    .append("div")
+                    .attr("class", "legend-item");
+
+                // Add color boxes to legend
+                legendItems.append("div")
+                    .attr("class", "legend-color-box")
+                    .style("background-color", function (d) {
+                        return d.color;
+                    });
+
+                // Add level names to legend
+                legendItems.append("div")
+                    .attr("class", "legend-text")
+                    .text(function (d) {
+                        return d.level;
+                    });
 
                 // Show the bars
                 svg.append("g")
@@ -1043,7 +1399,7 @@ export default {
                         .attr("height", y.bandwidth())
                         .attr("stroke", "black")
                         .attr("stroke-width", 0.5)
-                        .attr("fill", d => d3.schemeSet1[d.Status === "developing" ? 1 : 0])
+                        .attr("fill", d => d.Status === "developing" ? '#31a354' : '#ef7f23')
                         .style("opacity", 0.7);
 
                     // Transition to gradually increase width for each bar pair
@@ -1117,7 +1473,7 @@ export default {
 
         const lollipopChart = () => {
             // set the dimensions and margins of the graph
-            const margin = { top: 10, right: 30, bottom: 30, left: 100 },
+            const margin = { top: 10, right: 30, bottom: 40, left: 100 },
                 width = 760 - margin.left - margin.right,
                 height = 500 - margin.top - margin.bottom;
 
@@ -1177,7 +1533,14 @@ export default {
                     .padding(1);
                 svg.append("g")
                     .call(d3.axisLeft(y))
-
+                svg.append("text")
+                    .attr("class", "axis-label")
+                    .attr("x", width - 20)
+                    .attr("y", height + margin.bottom - 5) // Adjusted the y-coordinate
+                    .style("text-anchor", "middle")
+                    .style("fill", "black")
+                    .style("font-size", 10)
+                    .text("Adult Mortality");
                 // Lines
                 svg.selectAll("myline")
                     .data(result)
@@ -1449,7 +1812,7 @@ export default {
                         .domain([0, MaxX])
                         .range([0, width])
                     svg.append("g").attr("class", "axis").attr("transform", "translate(0," + height + ")")
-                        .call(d3.axisBottom(x).tickFormat((d) => (d === 0 ? d : d )))
+                        .call(d3.axisBottom(x).tickFormat((d) => (d === 0 ? d : d)))
                         .selectAll("text")
                         .attr("fill", "black");
 
@@ -1467,7 +1830,7 @@ export default {
                     svg.append("g")
                         .attr("class", "axis")
                         .attr("transform", "translate(0, 0)")
-                        .call(d3.axisTop(x).tickFormat((d) => (d === 0 ? d : d )))
+                        .call(d3.axisTop(x).tickFormat((d) => (d === 0 ? d : d)))
                         .selectAll("text")
                         .attr("fill", "black");
 
@@ -1548,7 +1911,7 @@ export default {
                         .attr("height", boxHeight)
                         .attr("stroke", "black")
                         .attr("stroke-width", 1)
-                        .style("fill", "#81689D")
+                        .style("fill", "#ef7f23")
                         .on("mouseover", function (event, d) {
                             d3.select(this).attr("stroke-width", 2);
 
@@ -1606,7 +1969,7 @@ export default {
                         .attr("y2", function (d) {
                             return (y(d.key) + boxHeight / 2)
                         })
-                        .attr("stroke", "#FFD0EC")
+                        .attr("stroke", "red")
                         .style("width", 80)
                 });
             }
@@ -1637,9 +2000,240 @@ export default {
 
 <style lang="scss" scoped>
 .final {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
     height: 100%;
+    overflow-x: hidden;
     overflow-y: auto;
-    overflow-x: auto;
+    font-family: Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+
+    ::v-deep() {
+        .link {
+            fill: none;
+            stroke: #161616;
+            stroke-opacity: .2;
+        }
+
+        .link:hover {
+            stroke: #000000;
+            stroke-opacity: 1;
+        }
+
+
+    }
+
+    &__header {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        margin-top: 20px;
+
+        &__btn {
+            position: absolute;
+            left: 20px;
+            top: 0;
+            bottom: 0;
+            margin: auto;
+            height: fit-content;
+
+            &__homebtn {
+                // position: absolute;
+                // left: 20px;
+                // top: 0;
+                // bottom: 0;
+                margin: auto;
+                appearance: none;
+                background: transparent;
+                border: 0;
+                color: #c4c4c4;
+                cursor: pointer;
+                font: inherit;
+                font-weight: 500;
+                line-height: 1;
+                padding: 1em 1.5em;
+                position: relative;
+                transition: filter 0.3s;
+
+
+                &:hover {
+                    filter: brightness(1.1);
+                }
+
+                &:active {
+                    filter: brightness(0.9);
+                }
+
+                &>span {
+                    display: block;
+                    position: relative;
+                    transition: transform 0.3s cubic-bezier(0.68, -0.6, 0.32, 1.6);
+                    z-index: 1;
+                }
+
+                &:hover>span {
+                    transform: scale(1.05);
+                }
+
+                &:active>span {
+                    transform: scale(0.95);
+                }
+
+                &>svg {
+                    fill: #22232A;
+                    position: absolute;
+                    top: -5%;
+                    left: -5%;
+                    width: 110%;
+                    height: 110%;
+                }
+
+                &>svg>path {
+                    transition: 0.3s cubic-bezier(0.68, -0.6, 0.32, 1.6);
+                }
+
+                &:hover>svg>path {
+                    d: path("M0,0 C0,-5 100,-5 100,0 C105,0 105,100 100,100 C100,105 0,105 0,100 C-5,100 -5,0 0,0");
+                }
+
+                &:active>svg>path {
+                    d: path("M0,0 C30,10 70,10 100,0 C95,30 95,70 100,100 C70,90 30,90 0,100 C5,70 5,30 0,0");
+                }
+            }
+        }
+
+        .wrapper {
+            // font-size: 5rem;
+            display: grid;
+            place-content: center;
+            // background-color: black;
+            // min-height: 100vh;
+            font-family: "Oswald", sans-serif;
+            // font-size: clamp(1.5rem, 1rem + 18vw, 15rem);
+            font-size: 4.5rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            color: hsl(0, 0%, 15%);
+
+
+            &>div {
+                grid-area: 1/1/-1/-1;
+            }
+
+            .top {
+                clip-path: polygon(0% 0%, 100% 0%, 100% 48%, 0% 58%);
+            }
+
+            .bottom {
+                clip-path: polygon(0% 60%, 100% 45%, 100% 100%, 0% 100%);
+                color: transparent;
+                background: -webkit-linear-gradient(179deg, #EEF5FF 53%, hsl(0, 0%, 25%) 65%);
+                background: linear-gradient(179deg, #EEF5FF 53%, hsl(0, 0%, 25%) 65%);
+                background-clip: text;
+                -webkit-background-clip: text;
+                transform: translateX(-0.02em);
+            }
+
+        }
+    }
+
+    &__section {
+        display: flex;
+        width: 100%;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        margin-top: 30px;
+
+        &__title {
+            font-size: 2rem;
+            font-weight: bold;
+            position: relative;
+
+            &::after {
+                content: '';
+                position: absolute;
+                top: 0;
+                bottom: 0;
+                margin: auto;
+                margin-left: 20px;
+                width: 250px;
+                border-radius: 50px;
+                height: 10px;
+                background-color: rgb(49, 163, 84);
+            }
+
+            &::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                bottom: 0;
+                margin: auto;
+                margin-left: -270px;
+                width: 250px;
+                border-radius: 50px;
+                height: 10px;
+                background-color: rgb(49, 163, 84);
+            }
+        }
+
+        &__desc {
+            width: 60%;
+            margin-top: 10px;
+            text-align: justify;
+        }
+
+        &__chart {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+            margin-top: 40px;
+
+            &__title {
+                font-size: 1.5rem;
+                font-weight: 400;
+                position: relative;
+
+                &::after {
+                    content: '';
+                    position: absolute;
+                    top: 0;
+                    bottom: 0;
+                    margin: auto;
+                    margin-left: 20px;
+                    width: 210px;
+                    border-radius: 50px;
+                    height: 5px;
+                    background-color: rgb(161, 217, 155);
+                }
+
+                &::before {
+                    content: '';
+                    position: absolute;
+                    top: 0;
+                    bottom: 0;
+                    margin: auto;
+                    margin-left: -230px;
+                    width: 210px;
+                    border-radius: 50px;
+                    height: 5px;
+                    background-color: rgb(161, 217, 155);
+                }
+            }
+
+            &__detail {
+                width: 60%;
+                margin-top: 10px;
+                text-align: justify;
+                color: rgb(104, 104, 104);
+
+            }
+        }
+    }
 }
 
 .tooltip {
@@ -1668,6 +2262,32 @@ export default {
 
 .tooltip.show {
     opacity: 0.9;
+}
+
+::v-deep() {
+    #stack_legend {
+        margin: 10px 0;
+        width: 60%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-wrap: wrap;
+    }
+
+    .legend-item {
+        display: inline-block;
+        padding-right: 40px;
+        vertical-align: middle;
+        margin-top: 10px;
+    }
+
+    .legend-color-box {
+        display: inline-block;
+        width: 20px;
+        height: 20px;
+        vertical-align: middle;
+        margin-right: 5px;
+    }
 }
 
 .tooltip .arrow {
