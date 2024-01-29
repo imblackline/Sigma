@@ -26,22 +26,22 @@
             </div>
             <div class="final__section__chart">
                 <h5 class="final__section__chart__title">Choropleth map</h5>
-                <p class="final__section__chart__detail">Lorem Ipsum is simply dummy text of the printing and typesetting
-                    industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown
-                    printer took a galley of type and scrambled it to make a type specimen book. It has survived not only
-                    five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was
-                    popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more
-                    recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+                <p class="final__section__chart__detail">The chart is a world map with countries shaded in varying colors to
+                    represent different life expectancy levels. Brighter shades indicate higher life expectancy, while
+                    darker shades indicate lower life expectancy. There's an interactive legend on the side, allowing users
+                    to understand the range of life expectancies. Hovering over a country reveals specific life expectancy
+                    data for that nation</p>
                 <div id="choropleth"></div>
             </div>
             <div class="final__section__chart">
                 <h5 class="final__section__chart__title">Bubble chart</h5>
-                <p class="final__section__chart__detail">Lorem Ipsum is simply dummy text of the printing and typesetting
-                    industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown
-                    printer took a galley of type and scrambled it to make a type specimen book. It has survived not only
-                    five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was
-                    popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more
-                    recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+                <p class="final__section__chart__detail">This chart plots life expectancy against GDP per capita. Countries
+                    are categorized into two groups: Developed and Developing, each marked with distinct colors. Each
+                    country is represented by a bubble, where the size of the bubble corresponds to the country's
+                    population. The x-axis represents GDP per capita, while the y-axis shows life expectancy. The chart
+                    includes a legend to distinguish between Developed and Developing countries and a size key to interpret
+                    the population sizes represented by the bubbles.
+                </p>
                 <div id="my_dataviz"></div>
             </div>
         </div>
@@ -50,40 +50,40 @@
                 Part of a whole
             </div>
             <div class="final__section__desc">
-                This section provides a compelling and informative overview of the data, utilizing the synergistic strengths
-                of two complementary visualization techniques: choropleth maps and bubble charts. These charts seamlessly
-                blend geographical representation with data intensity, enabling a comprehensive understanding of spatial
-                patterns and relationships
+                This section breaks down complex health and economic data into more digestible parts. It features a Doughnut
+                Chart illustrating alcohol consumption in various countries; and a Pie Chart displaying the distribution of
+                government health expenditures. These visualizations help to understand the components that make up the
+                bigger picture of global health and economics.
             </div>
             <div class="final__section__chart">
                 <h5 class="final__section__chart__title">100% Stacked Bar Chart</h5>
-                <p class="final__section__chart__detail">Lorem Ipsum is simply dummy text of the printing and typesetting
-                    industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown
-                    printer took a galley of type and scrambled it to make a type specimen book. It has survived not only
-                    five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was
-                    popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more
-                    recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+                <p class="final__section__chart__detail">The chart consists of 10 horizontal bars, each representing a
+                    different country. Each bar is segmented into four parts, corresponding to the years 2000, 2005, 2010,
+                    and 2015. The length of each segment reflects the GDP per capita for that year as a percentage of the
+                    total GDP across all four years. The colors for each year are consistent across all countries for easy
+                    comparison. A legend is included to help identify which color corresponds to which year.</p>
                 <div id="stack_legend"></div>
                 <div id="stacked"></div>
             </div>
             <div class="final__section__chart">
                 <h5 class="final__section__chart__title">Doughnut Chart</h5>
-                <p class="final__section__chart__detail">Lorem Ipsum is simply dummy text of the printing and typesetting
-                    industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown
-                    printer took a galley of type and scrambled it to make a type specimen book. It has survived not only
-                    five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was
-                    popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more
-                    recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+                <p class="final__section__chart__detail">This Doughnut Chart displays the alcohol consumption rates for ten
+                    selected countries in the year 2010. Each segment of the doughnut represents a different country, with
+                    varying colors for easy identification. The size of each segment corresponds to the level of alcohol
+                    consumption in that country. The chart includes a legend indicating which color corresponds to which
+                    country. Interactive elements may include tooltips showing specific consumption figures upon hovering
+                    over each segment.</p>
                 <div id="doughnut"></div>
             </div>
             <div class="final__section__chart">
                 <h5 class="final__section__chart__title">Pie Chart</h5>
-                <p class="final__section__chart__detail">Lorem Ipsum is simply dummy text of the printing and typesetting
-                    industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown
-                    printer took a galley of type and scrambled it to make a type specimen book. It has survived not only
-                    five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was
-                    popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more
-                    recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+                <p class="final__section__chart__detail">This Pie Chart showcases the distribution of government health
+                    expenditures as a percentage of total government expenditures across ten selected countries. Each slice
+                    represents a different country, differentiated by unique colors. The size of each segment reflects the
+                    proportion of the government's total expenditure that is allocated to health. A legend is included to
+                    associate each color with its corresponding country. Interactive elements could show the exact
+                    percentage of health expenditure upon hovering over each segment.
+                </p>
                 <div id="pie_legend"></div>
                 <div id="pie"></div>
             </div>
@@ -93,19 +93,18 @@
                 Time Series
             </div>
             <div class="final__section__desc">
-                This section provides a compelling and informative overview of the data, utilizing the synergistic strengths
-                of two complementary visualization techniques: choropleth maps and bubble charts. These charts seamlessly
-                blend geographical representation with data intensity, enabling a comprehensive understanding of spatial
-                patterns and relationships
+                The Time Series section focuses on the progression of health-related metrics over time. It includes a Line
+                Chart that traces the trends in adult mortality rates in developed and developing countries from 2000 to
+                2015. This chart is crucial for understanding how health outcomes have evolved over the years in different
+                parts of the world.
             </div>
             <div class="final__section__chart">
                 <h5 class="final__section__chart__title">Line chart</h5>
-                <p class="final__section__chart__detail">Lorem Ipsum is simply dummy text of the printing and typesetting
-                    industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown
-                    printer took a galley of type and scrambled it to make a type specimen book. It has survived not only
-                    five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was
-                    popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more
-                    recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+                <p class="final__section__chart__detail">This Line Chart features two lines, each representing a category of
+                    countries: Developed and Developing. The x-axis spans from the year 2000 to 2015, while the y-axis
+                    represents the average adult mortality rates. The lines for each category are color-coded for
+                    distinction.
+                </p>
                 <div id="line_legend"></div>
                 <div id="line"></div>
             </div>
@@ -115,40 +114,44 @@
                 Comparison
             </div>
             <div class="final__section__desc">
-                This section provides a compelling and informative overview of the data, utilizing the synergistic strengths
-                of two complementary visualization techniques: choropleth maps and bubble charts. These charts seamlessly
-                blend geographical representation with data intensity, enabling a comprehensive understanding of spatial
-                patterns and relationships
+                In the Comparison section, differences and similarities between countries and categories are highlighted. It
+                features a Grouped Bar Chart comparing the prevalence of diseases across countries, a Butterfly Chart
+                showing adult mortality trends, and a Lollipop Chart that illustrates the range of adult mortality rates.
+                These charts are instrumental in comparing health metrics across different dimensions.
             </div>
             <div class="final__section__chart">
                 <h5 class="final__section__chart__title">Grouped Bar Chart</h5>
-                <p class="final__section__chart__detail">Lorem Ipsum is simply dummy text of the printing and typesetting
-                    industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown
-                    printer took a galley of type and scrambled it to make a type specimen book. It has survived not only
-                    five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was
-                    popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more
-                    recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+                <p class="final__section__chart__detail">This chart features 10 groups of bars, with each group
+                    corresponding to one of the 10 selected countries. Within each group, there are four bars representing
+                    the four different diseases. The x-axis categorizes the countries, while the y-axis represents the
+                    prevalence of each disease. Each disease is represented by a different color within the group, allowing
+                    for easy comparison across countries. The chart includes a legend to identify the colors associated with
+                    each disease.
+                </p>
                 <div id="bar_legend"></div>
                 <div id="bar"></div>
             </div>
             <div class="final__section__chart">
                 <h5 class="final__section__chart__title">Butterfly chart</h5>
-                <p class="final__section__chart__detail">Lorem Ipsum is simply dummy text of the printing and typesetting
-                    industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown
-                    printer took a galley of type and scrambled it to make a type specimen book. It has survived not only
-                    five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was
-                    popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more
-                    recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+                <p class="final__section__chart__detail">The Butterfly Chart is structured with two mirrored bar graphs, one
+                    on the left and one on the right, sharing a common central y-axis that represents the years from 2000 to
+                    2015. The left side shows the adult mortality rates in developed countries, while the right side
+                    displays the rates in developing countries. Each bar represents the average adult mortality rate for a
+                    specific year. The bars are color-coded to distinguish between developed and developing countries. This
+                    format allows for a direct year-by-year comparison between the two types of countries.
+                </p>
                 <div id="pyramid"></div>
             </div>
             <div class="final__section__chart">
                 <h5 class="final__section__chart__title">Lollipop Chart</h5>
-                <p class="final__section__chart__detail">Lorem Ipsum is simply dummy text of the printing and typesetting
-                    industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown
-                    printer took a galley of type and scrambled it to make a type specimen book. It has survived not only
-                    five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was
-                    popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more
-                    recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+                <p class="final__section__chart__detail">The Lollipop Chart displays a vertical orientation with the y-axis
+                    listing the names of the 10 selected countries and the x-axis representing the range of adult mortality
+                    rates. For each country, two 'lollipops' are plotted: one for the minimum and one for the maximum adult
+                    mortality rate observed from 2000 to 2015. The 'stick' of each lollipop highlights the range, while the
+                    'head' marks the exact values of the min and max rates. Different colors are used for minimum and
+                    maximum values for clarity. The chart may include an interactive feature that shows the specific year
+                    for each minimum and maximum value when hovering over the lollipops.
+                </p>
                 <div id="lollipop_legend"></div>
                 <div id="lollipop"></div>
             </div>
@@ -158,30 +161,29 @@
                 Correlation
             </div>
             <div class="final__section__desc">
-                This section provides a compelling and informative overview of the data, utilizing the synergistic strengths
-                of two complementary visualization techniques: choropleth maps and bubble charts. These charts seamlessly
-                blend geographical representation with data intensity, enabling a comprehensive understanding of spatial
-                patterns and relationships
+                This section explores the relationships between various health and social factors. It includes a Scatter
+                Plot analyzing the correlation between adult mortality and schooling, and a Heat Map showing BMI trends over
+                15 years in selected countries. These visualizations are key to understanding how different factors
+                interplay in the realm of public health.
             </div>
             <div class="final__section__chart">
                 <h5 class="final__section__chart__title">Scatter Plot</h5>
-                <p class="final__section__chart__detail">Lorem Ipsum is simply dummy text of the printing and typesetting
-                    industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown
-                    printer took a galley of type and scrambled it to make a type specimen book. It has survived not only
-                    five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was
-                    popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more
-                    recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+                <p class="final__section__chart__detail">This Scatter Plot features many dots, each representing one of the
+                    193 countries. The x-axis measures the level of schooling, while the y-axis represents the adult
+                    mortality rate for the year 2015. Each dot's position on the graph indicates the schooling level and
+                    adult mortality rate of a country. The plot may include a trend line to highlight the general
+                    relationship between these two variables.</p>
                 <div id="scatter"></div>
             </div>
             <div class="final__section__chart">
                 <h5 class="final__section__chart__title">Heatmap</h5>
-                <p class="final__section__chart__detail">Lorem Ipsum is simply dummy text of the printing and typesetting
-                    industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown
-                    printer took a galley of type and scrambled it to make a type specimen book. It has survived not only
-                    five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was
-                    popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more
-                    recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
-                <div id="heatmap_legend"></div>
+                <p class="final__section__chart__detail">The Heat Map is structured as a grid, with rows representing the 10
+                    selected countries and columns corresponding to each year from 2000 to 2015. Each cell in the grid shows
+                    the average BMI for a country in a particular year. The colors in the cells vary according to the BMI
+                    value – a color gradient is used to indicate higher or lower BMI values. The map includes a color legend
+                    that explains the BMI range each color represents. This format allows for an easy comparison of BMI
+                    changes over time across different countries.</p>
+                <svg id="colorBar"></svg>
                 <div id="heatmap"></div>
             </div>
         </div>
@@ -190,19 +192,19 @@
                 Distribution
             </div>
             <div class="final__section__desc">
-                This section provides a compelling and informative overview of the data, utilizing the synergistic strengths
-                of two complementary visualization techniques: choropleth maps and bubble charts. These charts seamlessly
-                blend geographical representation with data intensity, enabling a comprehensive understanding of spatial
-                patterns and relationships
+                The Distribution section delves into the variability and range of health-related data. It features a Box
+                Plot that provides insights into the distribution of government health expenditures in different countries.
+                This chart is essential for examining the spread and central tendencies in health spending across various
+                nations.
             </div>
             <div class="final__section__chart">
                 <h5 class="final__section__chart__title">Box Plot</h5>
-                <p class="final__section__chart__detail">Lorem Ipsum is simply dummy text of the printing and typesetting
-                    industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown
-                    printer took a galley of type and scrambled it to make a type specimen book. It has survived not only
-                    five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was
-                    popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more
-                    recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+                <p class="final__section__chart__detail">The Box Plot displays 10 separate boxes, each corresponding to one
+                    of the selected countries. The y-axis lists the names of the countries, and the x-axis represents the
+                    range of total government health expenditures. Each box shows the distribution of expenditures within a
+                    country, with the central line in the box indicating the median expenditure. The ends of the box
+                    represent the lower and upper quartiles, while the 'whiskers' extend to show the full range of the data,
+                    including any outliers.</p>
                 <div id="boxplot"></div>
             </div>
         </div>
@@ -1210,13 +1212,13 @@ export default {
                 // color palette = one color per subgroup
                 const color = d3.scaleOrdinal()
                     .domain(subgroups)
-                    .range([ '#ef7f23' , '#31a354' ,'#4F709C','#C63D2F'])
+                    .range(['#ef7f23', '#31a354', '#4F709C', '#C63D2F'])
 
                 var legendContainer = d3.select("#bar_legend");
 
                 // Data for legend items
                 var legendData = [{
-                    level: "Measles ", 
+                    level: "Measles ",
                     color: color("Measles ")
                 },
                 {
@@ -1712,6 +1714,35 @@ export default {
                 const myColor = d3.scaleLinear()
                     .range(["white", "#69b3a2"])
                     .domain([1, 100])
+                const colorBarSvg = d3
+                    .select("#colorBar")
+                    .attr('width', width + margin.left + margin.right - 100)
+                    .attr('height', 50)
+                    .append('g')
+                    .attr('transform', `translate(${margin.left},${5})`);
+                // Draw the color bar
+                colorBarSvg
+                    .selectAll('rect')
+                    .data(d3.range(0, 70, 7))
+                    .enter()
+                    .append('rect')
+                    .attr('x', (d, i) => i * (width / 10 - 15))
+                    .attr('width', width / 10)
+                    .attr('height', 20)
+                    .attr('fill', (d) => myColor(d));
+
+                // Add range numbers below each color
+                colorBarSvg
+                    .selectAll('text')
+                    .data(d3.range(0, 70, 7))
+                    .enter()
+                    .append('text')
+                    .text((d) => d.toFixed(2)) // Adjust decimal places as needed
+                    .attr('x', (d, i) => i * (width / 10 - 15))
+                    .attr('y', 40)
+                    .attr('text-anchor', 'middle')
+                    .style('font-size', '12px')
+                    .style('fill', '#000');
                 svg.selectAll()
                     .data(filteredData, function (d) { return d.Country + ':' + d.Year; })
                     .join("rect")
@@ -2162,7 +2193,7 @@ export default {
                 margin-left: 20px;
                 width: 250px;
                 border-radius: 50px;
-                height: 10px;
+                height: 20px;
                 background-color: rgb(49, 163, 84);
             }
 
@@ -2175,7 +2206,7 @@ export default {
                 margin-left: -270px;
                 width: 250px;
                 border-radius: 50px;
-                height: 10px;
+                height: 20px;
                 background-color: rgb(49, 163, 84);
             }
         }
@@ -2302,5 +2333,4 @@ export default {
     content: "";
     border-color: transparent;
     border-style: solid;
-}
-</style>
+}</style>
