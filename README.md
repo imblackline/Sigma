@@ -105,7 +105,7 @@ You can create interactive data visualizations by adding D3.js code to your Vue 
 
 ## Demo
 
-You can find a live demo of the Data Visualization project [here](#). The demo showcases various data visualizations created using the technologies mentioned above.
+You can find a live demo of the Data Visualization project [here](https://imblackline.github.io/Sigma/#/). The demo showcases various data visualizations created using the technologies mentioned above.
 
 ## Contributing
 
